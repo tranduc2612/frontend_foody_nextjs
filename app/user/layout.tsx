@@ -40,6 +40,18 @@ export default function Layout({
           User
         </button>
 
+        <button
+          className={`${
+            pathname === "/user" ? "active" : ""
+          } rounded-lg px-4 py-2 bg-blue-500 text-blue-100 hover:bg-blue-600 duration-300 mx-10`}
+
+          onClick={()=>{
+            
+          }}
+        >
+          Log out
+        </button>
+
         {/* <button
           className={`${
             pathname === "/user" ? "active" : ""

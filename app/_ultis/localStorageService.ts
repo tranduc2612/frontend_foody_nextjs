@@ -1,6 +1,6 @@
 const LOCAL_STORAGE_KEYS = {
     ACCESS_TOKEN: "ACCESS_TOKEN",
-    INFO_TOKEN: "INFO_TOKEN",
+    INFO_USER: "INFO_USER",
 }
 const get = <T>(key: string): T | undefined => {
 	if (typeof window !== 'undefined' && localStorage) {

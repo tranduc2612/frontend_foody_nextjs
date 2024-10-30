@@ -1,9 +1,13 @@
+'use client'
+import Authorized from "../_components/auth/Authorized";
 
 export default function DashBoard() {
     return (
-      <div className="">
-          Dashboard
-      </div>
+      <Authorized>
+        <div className="">
+            Dashboard
+        </div>
+      </Authorized>
     );
   }
   
