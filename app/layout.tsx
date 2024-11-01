@@ -6,6 +6,9 @@ import "./globals.css";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
 import { TanstackProvider } from "./_provider/tanstack";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import theme from "./_mui/theme";
+import MuiProviders from "./_provider/mui";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -37,7 +40,9 @@ export default function RootLayout({
         <div>Root header</div>
         <TanstackProvider>
           <AuthProvider>
-            {children}
+            <MuiProviders>
+              {children}
+            </MuiProviders>
           </AuthProvider>
         </TanstackProvider>
         <ToastContainer />
