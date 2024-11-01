@@ -1,7 +1,7 @@
 "use client";
 import { localStorageService } from "@/app/_ultis/localStorageService";
 import * as React from "react";
-import { fetchLogin } from "../_api/auth/service";
+import { cookieService } from "../_ultis/cookieService";
 
 export interface AuthContext {
   isAuthenticated: boolean;
@@ -49,18 +49,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if(!token){
       return
     }
-    localStorageService.set(
-      localStorageService.LOCAL_STORAGE_KEYS.ACCESS_TOKEN,
-      token
-    );
+    // localStorageService.set(
+    //   localStorageService.LOCAL_STORAGE_KEYS.ACCESS_TOKEN,
+    //   token
+    // );
+    cookieService.set(cookieService.COOKIE_KEYS.ACCESS_TOKEN,token,7)
     setToken(token);
     if(!infoUser){
       return
     }
-    localStorageService.set(
-      localStorageService.LOCAL_STORAGE_KEYS.INFO_USER,
-      JSON.stringify(infoUser)
-    );
+    // localStorageService.set(
+    //   localStorageService.LOCAL_STORAGE_KEYS.INFO_USER,
+    //   JSON.stringify(infoUser)
+    // );
+    cookieService.set(cookieService.COOKIE_KEYS.INFO_USER,infoUser,7)
+
     setInfoUser(infoUser);
     setIsAuthenticated(!!token);
   };
@@ -69,7 +72,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setToken(null);
     setInfoUser(null);
     setIsAuthenticated(false);
-    localStorageService.clearAll();
+    // localStorageService.clearAll();
+    cookieService.clearAll()
   };
 
   return (

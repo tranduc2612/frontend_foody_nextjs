@@ -1,6 +1,5 @@
 import client from "@/app/_axios";
-import { ResponseApi } from "@/app/_lib/types/response";
-import { localStorageService } from "@/app/_ultis/localStorageService";
+import { ResponseApi } from "@/app/_types/response";
 
 export const fetchLogin = async (data: LoginPayload): Promise<ResponseApi<Account | null>> => {
     try {

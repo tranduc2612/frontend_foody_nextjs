@@ -1,5 +1,5 @@
 
-import { ResponseApi } from "@/app/_lib/types/response";
+import { ResponseApi } from "@/app/_types/response";
 import { fetchLogin } from "./service"
 
 interface Error {

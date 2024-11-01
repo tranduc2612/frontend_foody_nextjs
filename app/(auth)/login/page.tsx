@@ -32,7 +32,8 @@ export default function Login() {
     const res = await login(value);
     if(res.data){
       setLogin(res.data.accessToken,res.data);
-      toast.success('dang nhập thành công')
+      toast.success('dang nhập thành công');
+      router.push("/user")
     }else{
       setLogout();
       toast.error('thất bại')
