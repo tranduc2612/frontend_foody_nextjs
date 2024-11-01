@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useAuth } from "../_provider";
 
 export default function Layout({
   children
@@ -9,6 +10,7 @@ export default function Layout({
 }>) {
   const pathname = usePathname();
   const router = useRouter();
+  const {setLogout} = useAuth()
 
   function switchLocale(locale: string) {
     // e.g. '/en/about' or '/fr/contact'
@@ -38,6 +40,19 @@ export default function Layout({
           }}
         >
           User
+        </button>
+
+        <button
+          className={`${
+            pathname === "/user" ? "active" : ""
+          } rounded-lg px-4 py-2 bg-blue-500 text-blue-100 hover:bg-blue-600 duration-300 mx-10`}
+
+          onClick={()=>{
+            setLogout();
+            router.push("/auth/login")
+          }}
+        >
+          Log out
         </button>
 
         {/* <button

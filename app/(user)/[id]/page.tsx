@@ -1,14 +1,13 @@
 'use client'
-
 import { useEffect } from "react";
 
-export default async function User({ params }: { params: { id: string } }) {
+export default function User() {
     useEffect(()=>{
-        console.log();
+        console.log('hhh');
     },[])
     return (
       <div className="">
-          User {params.id}
+          User
       </div>
     );
   }

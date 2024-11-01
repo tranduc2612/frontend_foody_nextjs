@@ -1,6 +1,5 @@
 const config = {
-    apiUrl: 'https://dummyjson.com'
-
+    apiUrl: 'http://localhost:3000'
 }
 
 export default config;

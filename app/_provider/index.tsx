@@ -1,48 +1,86 @@
 "use client";
-import * as React from "react";
 import { localStorageService } from "@/app/_ultis/localStorageService";
-import { fetchLogin } from "@/app/_api/auth/service";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import * as React from "react";
+import { cookieService } from "../_ultis/cookieService";
 
 export interface AuthContext {
   isAuthenticated: boolean;
-  logout: () => Promise<void>;
   token: string | null;
+  infoUser: Account | null;
+  setLogin: (token: string, infoUser: Account)=>void;
+  setLogout: ()=>void;
 }
 
 const AuthContext = React.createContext<AuthContext | null>(null);
-const queryClient = new QueryClient();
+const BASE_USER = {
+  id: 0,
+  username: "",
+  email: "",
+  firstName: "",
+  lastName: "",
+  gender: "",
+  image: "",
+  token: "",
+  accessToken: "",
+  refreshToken: "",
+};
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [token, setToken] = React.useState<string | null>(
+  const accessTokenLocal =
     localStorageService.get<string>(
       localStorageService.LOCAL_STORAGE_KEYS.ACCESS_TOKEN
-    ) || null
-  );
-  const isAuthenticated = !!token;
+    ) || null;
+  const infoUserToken =
+    localStorageService.get<Account>(
+      localStorageService.LOCAL_STORAGE_KEYS.INFO_USER
+    ) || null;
 
-  const logout = React.useCallback(async () => {
-    // await sleep(250)
-    //call api
-    localStorageService.clearAll();
-    setToken(null);
-  }, []);
+  const [token, setToken] = React.useState<string | null>(accessTokenLocal);
+  const [infoUser, setInfoUser] = React.useState<Account | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
 
   React.useEffect(() => {
-    setToken(
-      localStorageService.get<string>(
-        localStorageService.LOCAL_STORAGE_KEYS.ACCESS_TOKEN
-      ) || null
-    );
+    setToken(accessTokenLocal);
+    setInfoUser(infoUserToken);
+    setIsAuthenticated(!!token);
   }, []);
 
+  const setLogin = async (token: string, infoUser: Account) => {
+    if(!token){
+      return
+    }
+    // localStorageService.set(
+    //   localStorageService.LOCAL_STORAGE_KEYS.ACCESS_TOKEN,
+    //   token
+    // );
+    cookieService.set(cookieService.COOKIE_KEYS.ACCESS_TOKEN,token,7)
+    setToken(token);
+    if(!infoUser){
+      return
+    }
+    // localStorageService.set(
+    //   localStorageService.LOCAL_STORAGE_KEYS.INFO_USER,
+    //   JSON.stringify(infoUser)
+    // );
+    cookieService.set(cookieService.COOKIE_KEYS.INFO_USER,infoUser,7)
+
+    setInfoUser(infoUser);
+    setIsAuthenticated(!!token);
+  };
+
+  const setLogout = async () => {
+    setToken(null);
+    setInfoUser(null);
+    setIsAuthenticated(false);
+    // localStorageService.clearAll();
+    cookieService.clearAll()
+  };
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, token, logout }}>
-      <QueryClientProvider client={queryClient}>
-        {children}
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+    <AuthContext.Provider
+      value={{ isAuthenticated, token, infoUser, setLogin, setLogout }}
+    >
+      {children}
     </AuthContext.Provider>
   );
 }

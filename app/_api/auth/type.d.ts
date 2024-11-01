@@ -7,6 +7,7 @@ interface Account {
     gender: string,
     image: string,
     token: string,
+    accessToken:string,
     refreshToken: string
 }
 

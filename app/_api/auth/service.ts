@@ -1,18 +1,22 @@
 import client from "@/app/_axios";
-import { localStorageService } from "@/app/_ultis/localStorageService";
+import { ResponseApi } from "@/app/_types/response";
 
-export const fetchLogin = async (data: LoginPayload): Promise<Account> => {
-    const tokenInfo = await client<Account>('/auth/login', {
-        method: 'POST',
-        data
-    })
-    if(tokenInfo){
-        localStorageService.set(localStorageService.LOCAL_STORAGE_KEYS.ACCESS_TOKEN, tokenInfo.token)
-    }else{
-        localStorageService.clearAll();
+export const fetchLogin = async (data: LoginPayload): Promise<ResponseApi<Account | null>> => {
+    try {
+        const tokenInfo = await client<Account>('/auth/login', {
+            method: 'POST',
+            data
+        })
+        return {
+            message: 'success',
+            data: tokenInfo
+        }
+    } catch (error) {
+        return {
+            message: 'error',
+            data: null
+        }
     }
-
-    return tokenInfo
 }
 
 export const refreshToken = async () => {
