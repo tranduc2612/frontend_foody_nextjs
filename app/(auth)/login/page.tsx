@@ -3,6 +3,7 @@
 import { useLogin } from "@/app/_api/auth/hooks";
 import { useAuth } from "@/app/_provider";
 import { localStorageService } from "@/app/_ultis/localStorageService";
+import { Button } from "antd";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
@@ -62,12 +63,7 @@ export default function Login() {
           placeholder="Type here..."
         />
       </div>
-      <button
-          className={`rounded-lg px-4 py-2 bg-blue-500 text-blue-100 hover:bg-blue-600 duration-300 mx-10`}
-          type="button" onClick={handleLogin}
-        >
-            đăng nhập
-        </button>
+        <Button type="primary" onClick={handleLogin}>Button</Button>
     </form>
   );
 }

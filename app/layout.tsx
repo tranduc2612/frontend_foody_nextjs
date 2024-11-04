@@ -6,6 +6,7 @@ import "./globals.css";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
 import { TanstackProvider } from "./_provider/tanstack";
+import { AntdRegistry } from '@ant-design/nextjs-registry';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -37,7 +38,9 @@ export default function RootLayout({
         <div>Root header</div>
         <TanstackProvider>
           <AuthProvider>
+          <AntdRegistry>
             {children}
+          </AntdRegistry>
           </AuthProvider>
         </TanstackProvider>
         <ToastContainer />
