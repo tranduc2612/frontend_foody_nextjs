@@ -1,14 +1,12 @@
 import { Metadata } from "next";
 import localFont from "next/font/local";
 import React from "react";
-import { AuthProvider } from "./_provider";
-import "./globals.css";
-import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
-import { TanstackProvider } from "./_provider/tanstack";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import theme from "./_mui/theme";
+import 'react-toastify/dist/ReactToastify.css';
+import { AuthProvider } from "./_provider";
 import MuiProviders from "./_provider/mui";
+import { TanstackProvider } from "./_provider/tanstack";
+import "./globals.css";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -37,7 +35,6 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div>Root header</div>
         <TanstackProvider>
           <AuthProvider>
             <MuiProviders>

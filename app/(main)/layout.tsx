@@ -1,7 +1,7 @@
 "use client";
+import { useAuth } from "@/app/_provider";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useAuth } from "../_provider";
 
 export default function Layout({
   children
