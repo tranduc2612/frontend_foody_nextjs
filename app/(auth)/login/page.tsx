@@ -2,15 +2,17 @@
 
 import { useLogin } from "@/app/_api/auth/hooks";
 import { useAuth } from "@/app/_provider";
-import { localStorageService } from "@/app/_ultis/localStorageService";
+import { Box, Button, TextField } from "@mui/material";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React from "react";
 import { toast } from "react-toastify";
 
 export default function Login() {
   const [value, setValues] = React.useState<LoginPayload>({
-    username: "emilys22",
-    password: "emilyspass",
+    // username: "emilys22",
+    // password: "emilyspass",
+    username: "",
+    password: "",
   });
   const router = useRouter();
   const { isAuthenticated, setLogin, setLogout } = useAuth();
@@ -41,33 +43,35 @@ export default function Login() {
   };
 
   return (
-    <form>
-      <label htmlFor="">Tài khoản</label>
-      <div className="w-full max-w-sm min-w-[200px]">
-        <input
+    <Box
+      component="form"
+      sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' } }}
+      noValidate
+      autoComplete="off"
+    >
+      <TextField
           name="username"
+          id="username"
+          label="Tài khoản"
+          type="text"
           value={value.username}
           onChange={handleOnChange}
-          className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-          placeholder="Type here..."
+          placeholder="Nhập tài khoản ở đây..."
+          margin="dense"
+          fullWidth
         />
-      </div>
-      <label htmlFor="">Mật khẩu</label>
-      <div className="w-full max-w-sm min-w-[200px]">
-        <input
+      <TextField
           name="password"
+          id="password"
+          label="Mật khẩu"
+          type="password"
           value={value.password}
           onChange={handleOnChange}
-          className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-          placeholder="Type here..."
+          placeholder="Nhập mật khẩu ở đây..."
+          margin="dense"
+          fullWidth
         />
-      </div>
-      <button
-          className={`rounded-lg px-4 py-2 bg-blue-500 text-blue-100 hover:bg-blue-600 duration-300 mx-10`}
-          type="button" onClick={handleLogin}
-        >
-            đăng nhập
-        </button>
-    </form>
+      <Button variant="contained" onClick={handleLogin}>Đăng nhập</Button>
+    </Box>
   );
 }
