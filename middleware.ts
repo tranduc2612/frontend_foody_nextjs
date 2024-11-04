@@ -5,7 +5,7 @@ import { ROUTES } from './app/_ultis/constant';
 
 // Danh sách các route yêu cầu đăng nhập
 const authorizedRoutes = [ROUTES.USER.url, ROUTES.USER_PROFILE.url];
-const unAuthorizedRoutes = ['/auth/login', '/auth/register'];
+const unAuthorizedRoutes = ['/login', '/register'];
 
 
 export function middleware(request: NextRequest) { 
