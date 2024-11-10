@@ -2,13 +2,16 @@ import { PaletteOptions } from "@mui/material";
 
 const _palette: PaletteOptions = {
     primary: {
-      main: '#1976d2', // Màu chính của primary
-      light: '#63a4ff',
-      dark: '#004ba0',
+      main: '#3a9691', // Màu chính của primary
+      light: '#e16120',
+      dark: '#4b9b96',
       contrastText: '#fff',
     },
     secondary: {
-      main: '#f50057',
+      main: '#e16120',
+      light: '#e16120',
+      dark: '#fff',
+      contrastText: '#333',
     },
     background: {
       default: '#f5f5f5', // Màu nền của toàn bộ ứng dụng

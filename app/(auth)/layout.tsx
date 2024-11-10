@@ -20,7 +20,7 @@ export default function Layout({
   }
 
   return (
-    <Box component='div' className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black">
+    <Box component='div' className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-5 flex flex-col rounded-md xl:w-3/12 md:w-5/12 w-10/12">
       {children}
     </Box>
   );

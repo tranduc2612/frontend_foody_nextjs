@@ -20,6 +20,29 @@ const theme = createTheme({
     borderRadius: 8, // Tạo border-radius cho các thành phần mặc định là 8px
   },
   mixins: _mixins,
+  components:{
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'var(--font-europa-regular)', // Áp dụng font cho Button
+        },
+      },
+    },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'var(--font-europa-regular)', // Áp dụng font cho Typography
+        },
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'var(--font-europa-regular)', // Áp dụng font cho InputBase
+        },
+      },
+    },
+  }
   // shadows: [
   //   'none',
   //   '0px 2px 4px rgba(0,0,0,0.2)',

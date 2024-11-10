@@ -2,10 +2,12 @@
 
 import { useLogin } from "@/app/_api/auth/hooks";
 import { useAuth } from "@/app/_provider";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, Checkbox, FormControlLabel, FormGroup, TextField, Typography } from "@mui/material";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { toast } from "react-toastify";
+import AccessibleIcon from '@mui/icons-material/Accessible';
 
 export default function Login() {
   const [value, setValues] = React.useState<LoginPayload>({
@@ -42,36 +44,48 @@ export default function Login() {
     }
   };
 
+  if(isPending){
+   return <></>
+  }
+
   return (
-    <Box
-      component="form"
-      sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' } }}
-      noValidate
-      autoComplete="off"
-    >
+    <>
+      <Typography color="primary" variant="h4" align="center" className="mb-10">Log in</Typography>
       <TextField
           name="username"
           id="username"
-          label="Tài khoản"
+          label="Username"
           type="text"
           value={value.username}
           onChange={handleOnChange}
-          placeholder="Nhập tài khoản ở đây..."
+          placeholder="Enter your username..."
           margin="dense"
           fullWidth
         />
       <TextField
           name="password"
           id="password"
-          label="Mật khẩu"
+          label="Password"
           type="password"
           value={value.password}
           onChange={handleOnChange}
-          placeholder="Nhập mật khẩu ở đây..."
+          placeholder="Enter your password..."
           margin="dense"
           fullWidth
         />
-      <Button variant="contained" onClick={handleLogin}>Đăng nhập</Button>
-    </Box>
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Checkbox onChange={()=>{}} name="remember" />
+            }
+            label="Remember me"
+          />
+        </FormGroup>
+      <Button className="" variant="contained" onClick={handleLogin}>Log in</Button>
+      <Box className="mt-5 w-full">
+        <Typography color="textPrimary" variant="h6" textAlign="center">Don't have an acount ?</Typography>
+        <Button className="mt-3" variant="outlined" fullWidth><Link href="/register">Sign up</Link></Button>
+      </Box>
+    </>
   );
 }
