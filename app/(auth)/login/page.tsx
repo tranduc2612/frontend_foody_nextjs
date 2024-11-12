@@ -2,90 +2,116 @@
 
 import { useLogin } from "@/app/_api/auth/hooks";
 import { useAuth } from "@/app/_provider";
-import { Box, Button, Checkbox, FormControlLabel, FormGroup, TextField, Typography } from "@mui/material";
+import { ResponseError } from "@/app/_types/response";
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  TextField,
+  Typography,
+} from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { toast } from "react-toastify";
-import AccessibleIcon from '@mui/icons-material/Accessible';
+import * as Yup from "yup";
+import { Formik, Form, Field, FormikHelpers } from "formik";
+import { handleResponseError } from "@/app/_ultis/common";
+
+const SignupSchema = Yup.object().shape({
+  username: Yup.string()
+    .required("The username required !"),
+  password: Yup.string()
+    .required("The password required !"),
+});
 
 export default function Login() {
-  const [value, setValues] = React.useState<LoginPayload>({
-    // username: "emilys22",
-    // password: "emilyspass",
-    username: "",
-    password: "",
-  });
   const router = useRouter();
   const { isAuthenticated, setLogin, setLogout } = useAuth();
-  const { mutateAsync: login,  isPending } = useLogin();
+  const { mutateAsync: login, isPending } = useLogin();
 
-  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const nameField = event.target.getAttribute("name");
-
-    if (typeof nameField !== "string") {
-      return;
-    }
-    setValues({
-      ...value,
-      [nameField]: event.target.value,
-    });
-  };
-
-  const handleLogin = async () => {
-    const res = await login(value);
-    if(res.data){
-      setLogin(res.data.accessToken,res.data);
-      toast.success('dang nhập thành công');
-      router.push("/user")
-    }else{
-      setLogout();
-      toast.error('thất bại')
+  const handleLogin = async (value: LoginPayload, { setErrors }: FormikHelpers<LoginPayload>) => {
+    try {
+      const res = await login(value);
+      console.log(res);
+      // setLogin(res.data.accessToken,res.data);
+      // router.push("/user")
+    } catch (error) {
+      const responseError = error as ResponseError;
+      const errorInfo = handleResponseError(responseError)
+      setErrors(errorInfo)           
     }
   };
 
-  if(isPending){
-   return <></>
-  }
+  // if (isPending) {
+  //   return <></>;
+  // }
 
   return (
     <>
-      <Typography color="primary" variant="h4" align="center" className="mb-10">Log in</Typography>
-      <TextField
-          name="username"
-          id="username"
-          label="Username"
-          type="text"
-          value={value.username}
-          onChange={handleOnChange}
-          placeholder="Enter your username..."
-          margin="dense"
-          fullWidth
-        />
-      <TextField
-          name="password"
-          id="password"
-          label="Password"
-          type="password"
-          value={value.password}
-          onChange={handleOnChange}
-          placeholder="Enter your password..."
-          margin="dense"
-          fullWidth
-        />
-        <FormGroup>
-          <FormControlLabel
-            control={
-              <Checkbox onChange={()=>{}} name="remember" />
-            }
-            label="Remember me"
-          />
-        </FormGroup>
-      <Button className="" variant="contained" onClick={handleLogin}>Log in</Button>
-      <Box className="mt-5 w-full">
-        <Typography color="textPrimary" variant="h6" textAlign="center">Don't have an acount ?</Typography>
-        <Button className="mt-3" variant="outlined" fullWidth><Link href="/register">Sign up</Link></Button>
-      </Box>
+      <Typography color="primary" variant="h4" align="center" className="mb-10">
+        Log in
+      </Typography>
+      <Formik
+        initialValues={{
+          username: "",
+          password: "",
+        }}
+        validationSchema={SignupSchema}
+        onSubmit={handleLogin}
+      >
+        {({ errors, touched, values, handleChange, setFieldValue, handleBlur }) => (
+          <Form>
+            <TextField
+              name="username"
+              id="username"
+              label="Username"
+              type="text"
+              value={values.username}
+              onChange={handleChange}
+              onBlur={handleBlur} 
+              error={touched.username && !!errors.username}
+              helperText={touched.username && errors.username}
+              placeholder="Enter your username..."
+              margin="dense"
+              fullWidth
+            />
+            <TextField
+              name="password"
+              id="password"
+              label="Password"
+              type="password"
+              value={values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.password && !!errors.password}
+              helperText={touched.password && errors.password}
+              placeholder="Enter your password..."
+              margin="dense"
+              fullWidth
+            />
+            <FormGroup>
+              <FormControlLabel
+                control={<Checkbox onChange={() => {}} name="remember" />}
+                label="Remember me"
+              />
+            </FormGroup>
+            <Button className="" variant="contained" type="submit" fullWidth>
+              Log in
+            </Button>
+            <Box className="mt-5 w-full">
+              <Typography color="textPrimary" variant="h6" textAlign="center">
+                Don't have an acount ?
+              </Typography>
+              <Button className="mt-3" variant="outlined" fullWidth>
+                <Link href="/register">Sign up</Link>
+              </Button>
+            </Box>
+          </Form>
+        )}
+      </Formik>
     </>
   );
 }
