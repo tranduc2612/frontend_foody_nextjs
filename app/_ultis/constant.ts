@@ -1,3 +1,34 @@
+export const SIDE_BAR = [
+    {
+        id: 'bar-1',
+        title: 'Recipes',
+        url: '',
+        child: [
+            {
+                id: 'bar-1-1',
+                title: 'My Feed',
+                url: '/dashboard'
+            },
+            {
+                id: 'bar-1-2',
+                title: 'Pro Recipes',
+                url: '/'
+            },
+            {
+                id: 'bar-1-3',
+                title: 'Guided Recipes',
+                url: '/'
+            },
+        ]
+    },
+    {
+        id: 'bar-2',
+        title: 'Articles',
+        url: '/',
+        child: []
+    }
+]
+
 export const queryKey = {
     AUTH:{
         LOGIN: 'LOGIN'
@@ -24,4 +55,4 @@ export const ROUTES = {
         url: '/register',
         name: 'register'
     }
-  }
+}

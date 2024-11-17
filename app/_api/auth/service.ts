@@ -9,6 +9,14 @@ export const fetchLogin = async (data: LoginPayload): Promise<ResponseApi<Accoun
     return tokenInfo
 }
 
+export const fetchRegister = async (data: RegisterPayload): Promise<ResponseApi<Account> | ResponseError> => {
+    const tokenInfo = await client<ResponseApi<Account> | ResponseError>('/auth/register', {
+        method: 'POST',
+        data
+    })
+    return tokenInfo
+}
+
 export const refreshToken = async () => {
     try {
         // const accessToken = localStorageService.get<string>(
