@@ -1,7 +1,12 @@
 "use client";
-import { useAuth } from "@/app/_provider";
+import { useAuth } from "@/app/_provider/auth";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useLoading } from "../_provider/loading";
+import MyLoading from "../_components/loading";
+import { Box } from "@mui/material";
+import { Sidebar } from "../_components/sidebar";
+import Grid from '@mui/material/Grid2';
 
 export default function Layout({
   children
@@ -10,7 +15,8 @@ export default function Layout({
 }>) {
   const pathname = usePathname();
   const router = useRouter();
-  const {setLogout} = useAuth()
+  
+  const {loading} = useLoading();
 
   function switchLocale(locale: string) {
     // e.g. '/en/about' or '/fr/contact'
@@ -19,67 +25,16 @@ export default function Layout({
   }
 
   return (
-    <div>
-      {/* Include shared UI here e.g. a header or sidebar */}
-      <nav>
-        <button
-          className={`${
-            pathname === "/user" ? "active" : ""
-          } rounded-lg px-4 py-2 bg-blue-500 text-blue-100 hover:bg-blue-600 duration-300 mx-10`}
-        >
-          <Link href="/">Home</Link>
-        </button>
-
-        <button
-          className={`${
-            pathname === "/user" ? "active" : ""
-          } rounded-lg px-4 py-2 bg-blue-500 text-blue-100 hover:bg-blue-600 duration-300 mx-10`}
-
-          onClick={()=>{
-            router.push('/user/2')
-          }}
-        >
-          User
-        </button>
-
-        <button
-          className={`${
-            pathname === "/user" ? "active" : ""
-          } rounded-lg px-4 py-2 bg-blue-500 text-blue-100 hover:bg-blue-600 duration-300 mx-10`}
-
-          onClick={()=>{
-            setLogout();
-            router.push("/auth/login")
-          }}
-        >
-          Log out
-        </button>
-
-        {/* <button
-          className={`${
-            pathname === "/user" ? "active" : ""
-          } rounded-lg px-4 py-2 bg-blue-500 text-blue-100 hover:bg-blue-600 duration-300 mx-10`}
-
-          onClick={() => switchLocale('user')}
-        >
-          User window
-        </button>
-
-        <button
-          className={`${
-            pathname === "/user" ? "active" : ""
-          } rounded-lg px-4 py-2 bg-blue-500 text-blue-100 hover:bg-blue-600 duration-300 mx-10`}
-
-          onClick={() => switchLocale('user/2')}
-        >
-          User window 2
-        </button> */}
-
-        
-      </nav>
-      
-      {children}
-      <footer>footer 1</footer>
-    </div>
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={0}>
+        <Grid size={2}>
+          <Sidebar />
+        </Grid>
+        <Grid size={10}>
+        {children}
+        </Grid>
+      </Grid>
+      {loading && <MyLoading />}
+    </Box>
   );
 }

@@ -1,6 +1,6 @@
 
 import { ResponseApi } from "@/app/_types/response";
-import { fetchLogin } from "./service"
+import { fetchLogin, fetchRegister } from "./service"
 
 interface Error {
     name: string;
@@ -52,5 +52,26 @@ export const useLogin = (
 		ResponseApi<Account>,
 		Error,
 		LoginPayload
+	>)
+}
+
+export const useRegister = (
+	options?: UseMutationOptions<
+		ResponseApi<Account>,
+		Error,
+		RegisterPayload
+	>,
+) => {
+	return useMutation<
+		ResponseApi<Account>,
+		Error,
+		RegisterPayload
+	>({
+		mutationFn: async (input:RegisterPayload) => await fetchRegister(input),
+		...options,
+	} as UseMutationOptions<
+		ResponseApi<Account>,
+		Error,
+		RegisterPayload
 	>)
 }
