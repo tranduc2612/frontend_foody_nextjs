@@ -1,22 +1,12 @@
 import client from "@/app/_axios";
-import { ResponseApi } from "@/app/_types/response";
+import { ResponseApi, ResponseError } from "@/app/_types/response";
 
-export const fetchLogin = async (data: LoginPayload): Promise<ResponseApi<Account | null>> => {
-    try {
-        const tokenInfo = await client<Account>('/auth/login', {
-            method: 'POST',
-            data
-        })
-        return {
-            message: 'success',
-            data: tokenInfo
-        }
-    } catch (error) {
-        return {
-            message: 'error',
-            data: null
-        }
-    }
+export const fetchLogin = async (data: LoginPayload): Promise<ResponseApi<Account> | ResponseError> => {
+    const tokenInfo = await client<ResponseApi<Account> | ResponseError>('/auth/login', {
+        method: 'POST',
+        data
+    })
+    return tokenInfo
 }
 
 export const refreshToken = async () => {
