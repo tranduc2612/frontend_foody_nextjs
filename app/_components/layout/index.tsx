@@ -1,10 +1,13 @@
 'use client'
  
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { useAuth } from '@/app/_provider/auth';
  
 export function LayoutPage() {
-  const pathname = usePathname()
+  const pathname = usePathname();
+  const router = useRouter();
+  const {setLogout} = useAuth();
  
   return (
     <nav>
@@ -18,6 +21,19 @@ export function LayoutPage() {
       >
         About
       </Link>
+
+      <button
+          className={`${
+            pathname === "/user" ? "active" : ""
+          } rounded-lg px-4 py-2 bg-blue-500 text-blue-100 hover:bg-blue-600 duration-300 mx-10`}
+
+          onClick={()=>{
+            setLogout();
+            router.push("/login")
+          }}
+        >
+          Log out
+        </button> 
     </nav>
   )
 }

@@ -7,8 +7,8 @@ export interface AuthContext {
   isAuthenticated: boolean;
   token: string | null;
   infoUser: Account | null;
-  setLogin: (token: string, infoUser: Account)=>void;
-  setLogout: ()=>void;
+  setLogin: (token: string, infoUser: Account)=>boolean;
+  setLogout: ()=>boolean;
 }
 
 const AuthContext = React.createContext<AuthContext | null>(null);
@@ -45,10 +45,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsAuthenticated(!!token);
   }, []);
 
-  const setLogin = async (token: string, infoUser: Account) => {
+  const setLogin = (token: string, infoUser: Account): boolean => {
     if(!token){
-      return
+      return false
     }
+    console.log(token);
+    
     // localStorageService.set(
     //   localStorageService.LOCAL_STORAGE_KEYS.ACCESS_TOKEN,
     //   token
@@ -56,7 +58,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     cookieService.set(cookieService.COOKIE_KEYS.ACCESS_TOKEN,token,7)
     setToken(token);
     if(!infoUser){
-      return
+      return false
     }
     // localStorageService.set(
     //   localStorageService.LOCAL_STORAGE_KEYS.INFO_USER,
@@ -66,14 +68,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     setInfoUser(infoUser);
     setIsAuthenticated(!!token);
+
+    return true;
   };
 
-  const setLogout = async () => {
+  const setLogout = () => {
     setToken(null);
     setInfoUser(null);
     setIsAuthenticated(false);
     // localStorageService.clearAll();
     cookieService.clearAll()
+
+    return true
   };
 
   return (
