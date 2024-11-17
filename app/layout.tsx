@@ -1,15 +1,26 @@
-import type { Metadata } from "next";
+import { Metadata } from "next";
 import localFont from "next/font/local";
+import React from "react";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { AuthProvider } from "./_provider";
+import MuiProviders from "./_provider/mui";
+import { TanstackProvider } from "./_provider/tanstack";
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
+const europaBold = localFont({
+  src: "./fonts/europa-bold-webfont.woff2",
+  variable: "--font-europa-bold",
   weight: "100 900",
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
+const europaRegular = localFont({
+  src: "./fonts/europa-regular-webfont.woff2",
+  variable: "--font-europa-regular",
+  weight: "100 900",
+});
+const europaLight = localFont({
+  src: "./fonts/europa-light-webfont.woff2",
+  variable: "--font-europa-light",
   weight: "100 900",
 });
 
@@ -26,10 +37,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${europaBold.variable} ${europaRegular.variable} ${europaLight.variable} antialiased font-europa-regular`}
       >
-        <div>Root header</div>
-        {children}
+        <TanstackProvider>
+          <AuthProvider>
+            <MuiProviders>
+              {children}
+            </MuiProviders>
+          </AuthProvider>
+        </TanstackProvider>
+        <ToastContainer />
       </body>
     </html>
   );
