@@ -12,7 +12,7 @@ export const SIDE_BAR = [
             {
                 id: 'bar-1-2',
                 title: 'Pro Recipes',
-                url: '/'
+                url: '/recipes'
             },
             {
                 id: 'bar-1-3',

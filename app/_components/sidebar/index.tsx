@@ -11,7 +11,11 @@ import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import { Box, MenuItem, MenuList } from '@mui/material';
 import { SIDE_BAR } from '@/app/_ultis/constant';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import Image from 'next/image'
+import images from '@/app/assets';
+import Avatar from '@mui/material/Avatar';
+
 
 const Accordion = styled((props: AccordionProps) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -51,7 +55,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 export function Sidebar() {
   const pathname = usePathname();
-  // const router = useRouter();
+  const router = useRouter();
   // const { setLogout } = useAuth();
 
   const [expanded, setExpanded] = React.useState<string | false>('panel1');
@@ -63,31 +67,51 @@ export function Sidebar() {
 
 
   return (
-    <Box className="flex flex-col sticky top-0 bg-white shadow-xl h-screen">
+    <Box className="flex flex-col sticky top-0 bg-white shadow-xl h-screen w-full">
+      <Box className="my-5 m-auto">
+        <Image
+          className='cursor-pointer'
+          onClick={() => router.push("/dashboard")}
+          src={images.logo.svg}
+          alt="logo"
+        />
+      </Box>
+
+      <Box className="my-0 m-auto mb-10">
+        <Avatar
+          className='cursor-pointer'
+          alt="Remy Sharp"
+          src="/static/images/avatar/1.jpg"
+          sx={{ width: 50, height: 50 }}
+        />
+      </Box>
+
       {
-          SIDE_BAR.map((itemBar)=>(
-            <Accordion sx={{width: '100%'}} expanded={expanded === itemBar.id} onChange={handleChange(itemBar.id)}>
-              <AccordionSummary aria-controls={`${itemBar.id}-content`} id={`${itemBar.id}-header`}>
-                <Typography color='textPrimary'>{itemBar.title}</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <MenuList>
-                  {
-                    itemBar.child.length > 0 && itemBar.child.map((childBar)=>(
-                      <MenuItem className='h-10' sx={(theme) => ({
-                        borderLeft: pathname === childBar.url 
-                          ? `2px solid red` 
-                          : '2px solid transparent',
-                      })}>
-                        <Typography color={pathname === childBar.url ? 'primary' : 'textPrimary'}>{childBar.title}</Typography>
-                      </MenuItem>
-                    ))
-                  }
-                </MenuList>
-              </AccordionDetails>
-            </Accordion>
-          ))
-        }
+        SIDE_BAR.map((itemBar) => (
+          <Accordion sx={{ width: '100%' }} expanded={expanded === itemBar.id} onChange={handleChange(itemBar.id)} TransitionProps={{
+            timeout: 800,
+          }}>
+            <AccordionSummary aria-controls={`${itemBar.id}-content`} id={`${itemBar.id}-header`}>
+              <Typography color='textPrimary' className='font-europa-bold'>{itemBar.title}</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <MenuList>
+                {
+                  itemBar.child.length > 0 && itemBar.child.map((childBar) => (
+                    <MenuItem className='h-10' sx={(theme) => ({
+                      borderLeft: pathname === childBar.url
+                        ? `4px solid ${theme.palette.primary.main}`
+                        : '4px solid transparent',
+                    })} onClick={() => router.push(childBar.url)}>
+                      <Typography color={pathname === childBar.url ? 'primary' : 'textPrimary'} className='font-europa-light'>{childBar.title}</Typography>
+                    </MenuItem>
+                  ))
+                }
+              </MenuList>
+            </AccordionDetails>
+          </Accordion>
+        ))
+      }
     </Box>
   )
 }

@@ -42,6 +42,13 @@ const theme = createTheme({
         },
       },
     },
+    MuiCollapse: {
+      styleOverrides: {
+        root: {
+          transitionTimingFunction: 'ease', // Áp dụng hiệu ứng ease
+        },
+      },
+    },
   }
   // shadows: [
   //   'none',
