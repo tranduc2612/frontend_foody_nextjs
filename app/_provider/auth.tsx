@@ -50,6 +50,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if(!token){
       return false
     }
+    console.log(token);
+    
     // localStorageService.set(
     //   localStorageService.LOCAL_STORAGE_KEYS.ACCESS_TOKEN,
     //   token
