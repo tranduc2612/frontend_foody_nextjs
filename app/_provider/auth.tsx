@@ -27,17 +27,18 @@ const BASE_USER = {
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const accessTokenLocal =
-    localStorageService.get<string>(
-      localStorageService.LOCAL_STORAGE_KEYS.ACCESS_TOKEN
+    cookieService.get<string>(
+      cookieService.COOKIE_KEYS.ACCESS_TOKEN
     ) || null;
   const infoUserToken =
-    localStorageService.get<Account>(
-      localStorageService.LOCAL_STORAGE_KEYS.INFO_USER
+    cookieService.get<Account>(
+      cookieService.COOKIE_KEYS.INFO_USER
     ) || null;
 
   const [token, setToken] = React.useState<string | null>(accessTokenLocal);
-  const [infoUser, setInfoUser] = React.useState<Account | null>(null);
+  const [infoUser, setInfoUser] = React.useState<Account | null>(infoUserToken);
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  
 
   React.useEffect(() => {
     setToken(accessTokenLocal);
