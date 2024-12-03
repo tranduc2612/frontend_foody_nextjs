@@ -1,13 +1,13 @@
 'use client'
 import { useEffect } from "react";
 
-export default function Recipes() {
+export default function RecipesFeed() {
     useEffect(()=>{
         console.log('hhh');
     },[])
     return (
       <div className="">
-          Recipes
+          Recipes feed
       </div>
     );
   }
