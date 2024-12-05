@@ -684,6 +684,20 @@
   resolved "https://registry.npmjs.org/@ungap/structured-clone/-/structured-clone-1.2.0.tgz"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
 
+"@unpic/core@0.0.49":
+  version "0.0.49"
+  resolved "https://registry.yarnpkg.com/@unpic/core/-/core-0.0.49.tgz#5ae5c25b73ee080cc13c3fa2c0a83099d779ce21"
+  integrity sha512-tAqeJRMPF2TrZbSQe74OZ9O5DzKDDUoFwFbZUpjvLcgwGQ/8aleDCb2Iy3bHFJfzzYZ9iHN0hN1VpTlAGQd+ZA==
+  dependencies:
+    unpic "^3.18.0"
+
+"@unpic/react@^0.1.14":
+  version "0.1.14"
+  resolved "https://registry.yarnpkg.com/@unpic/react/-/react-0.1.14.tgz#ededf95d9a4a4d4c3dafc25afeb1d8847fd56ba3"
+  integrity sha512-jQ2qJkLMDQqQIQ8THf1c9YCMgZVO1JhPltdqteTVF9gjGqzgM81LiCG/VjH+EQiZNT3Lk7bPlf7Sc4h/q3VXAg==
+  dependencies:
+    "@unpic/core" "0.0.49"
+
 acorn-jsx@^5.3.2:
   version "5.3.2"
   resolved "https://registry.npmjs.org/acorn-jsx/-/acorn-jsx-5.3.2.tgz"
@@ -3179,6 +3193,11 @@ undici-types@~6.19.2:
   version "6.19.8"
   resolved "https://registry.npmjs.org/undici-types/-/undici-types-6.19.8.tgz"
   integrity sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==
+
+unpic@^3.18.0:
+  version "3.20.0"
+  resolved "https://registry.yarnpkg.com/unpic/-/unpic-3.20.0.tgz#00d1a641986a56466ee02963f331e7c3ee6f058c"
+  integrity sha512-reWY4Ez9FCjw8J7fGByyyi1Z1fv20xjkFgDa9xI7vqdg89fcLzUYkROKo7yZ5WHRelq6x+pL4ohPRzEdU020aQ==
 
 uri-js@^4.2.2:
   version "4.4.1"
