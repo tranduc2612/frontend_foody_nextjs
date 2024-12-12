@@ -68,7 +68,7 @@ export function Sidebar() {
 
 
   return (
-    <Box className="flex flex-col sticky top-0 bg-white shadow-xl h-screen w-full">
+    <Box className="flex flex-col bg-white">
       <Box className="my-5 m-auto">
         <Image
           className='cursor-pointer'
@@ -90,10 +90,24 @@ export function Sidebar() {
 
       {
         SIDE_BAR.map((itemBar) => (
-          <Accordion key={itemBar.id} sx={{ width: '100%' }} expanded={expanded === itemBar.id} onChange={handleChange(itemBar.id)} TransitionProps={{
+          <Accordion key={itemBar.id} sx={{
+            width: '100%',
+            position: 'relative',
+            '&:not(:last-child)::after': {
+              content: '""',
+              display: 'block',
+              position: 'absolute',
+              bottom: 0, 
+              left: '5%',
+              width: '90%',
+              opacity: '0.2',
+              height: '1px', 
+              backgroundColor: 'gray',
+            },
+          }} expanded={expanded === itemBar.id} onChange={handleChange(itemBar.id)} TransitionProps={{
             timeout: 800,
           }}>
-            <AccordionSummary aria-controls={`${itemBar.id}-content`} id={`${itemBar.id}-header`} expandIcon={itemBar.child.length > 0 ? <ArrowForwardIosSharpIcon color="primary" sx={{ fontSize: '0.9rem' }} /> : null}>
+            <AccordionSummary sx={{ backgroundColor: 'white' }} aria-controls={`${itemBar.id}-content`} id={`${itemBar.id}-header`} expandIcon={itemBar.child.length > 0 ? <ArrowForwardIosSharpIcon color="primary" sx={{ fontSize: '0.9rem' }} /> : null}>
               <Typography color='textPrimary' className='font-europa-bold'>{itemBar.title}</Typography>
             </AccordionSummary>
             {
