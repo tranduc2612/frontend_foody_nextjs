@@ -5,12 +5,19 @@ import WapperBanner from "@/app/_components/wapper-banner";
 import { Box, Container, Typography } from "@mui/material";
 import Grid from '@mui/material/Grid2';
 import { useEffect, useState } from "react";
+import { useGetListRecipes } from "@/app/_api/recipes/hooks";
 
 export default function RecipesFeed() {
   const [searchValue, setSearchValue] = useState("");
-  useEffect(() => {
-    console.log('hhh');
-  }, [])
+  const {
+		data: recipesList,
+		status: fetchRecipesList,
+		refetch,
+	} = useGetListRecipes({
+    pageCount: 10, pageIndex: 1
+  });
+
+  console.log(recipesList)
 
   const handleSearch = () => {
 

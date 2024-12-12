@@ -14,3 +14,11 @@ export interface ErrorField{
     field: string,
     errors: string[]
 }
+
+export interface Pagination<T> {
+    items: T[];
+    total: number;
+    totalPages: number;
+    currentPage: number;
+    pageSize: number;
+};
