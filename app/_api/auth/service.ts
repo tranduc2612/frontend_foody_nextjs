@@ -1,5 +1,6 @@
 import client from "@/app/_axios";
 import { ResponseApi, ResponseError } from "@/app/_types/response";
+import { cookieService } from "@/app/_ultis/cookieService";
 
 export const fetchLogin = async (data: LoginPayload): Promise<ResponseApi<Account> | ResponseError> => {
     const tokenInfo = await client<ResponseApi<Account> | ResponseError>('/auth/login', {
@@ -36,5 +37,5 @@ export const refreshToken = async () => {
 }
 
 export const logout = async () => {
-    // localStorageService.clearAll()
+    cookieService.clearAll()
 }

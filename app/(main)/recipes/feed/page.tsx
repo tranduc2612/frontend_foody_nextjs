@@ -6,12 +6,19 @@ import { Box, Button, Card, CardActions, CardContent, Container, Paper, Typograp
 import { useEffect, useState } from "react";
 import Grid from '@mui/material/Grid2';
 import CardRecipe from "@/app/_components/card-recipe";
+import { useGetListRecipes } from "@/app/_api/recipes/hooks";
 
 export default function RecipesFeed() {
   const [searchValue, setSearchValue] = useState("");
-  useEffect(() => {
-    console.log('hhh');
-  }, [])
+  const {
+		data: recipesList,
+		status: fetchRecipesList,
+		refetch,
+	} = useGetListRecipes({
+    pageCount: 10, pageIndex: 1
+  });
+
+  console.log(recipesList)
 
   const handleSearch = () => {
 

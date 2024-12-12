@@ -1,4 +1,5 @@
 import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, IconButton, Paper, Typography, Rating } from "@mui/material"
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { upperCaseString } from "@/app/_ultis/common";
 
@@ -53,7 +54,10 @@ function CardRecipe() {
             <CardActions className="flex w-full justify-center">
                 <Rating
                     name="simple-controlled"
-                    value={3}
+                    value={3.5}
+                    precision={0.5}
+                    icon={<FavoriteIcon sx={{color: '#ff6d75'}} fontSize="inherit" />}
+                    emptyIcon={<FavoriteBorderIcon sx={{color: '#ff6d75'}} fontSize="inherit" />}
                     onChange={(event, newValue) => {
 
                     }}

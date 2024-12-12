@@ -3,14 +3,15 @@ import { localStorageService } from "@/app/_ultis/localStorageService";
 import config from "@/app/_ultis/config";
 import {jwtDecode} from 'jwt-decode';
 import { refreshToken, logout } from "@/app/_api/auth/service";
+import { cookieService } from "../_ultis/cookieService";
 axios.defaults.baseURL = config.apiUrl
 
 const client = async <T>(
     endpoint: string,
     requestConfig: AxiosRequestConfig,
 ) => {
-    const accessToken = localStorageService.get<string>(
-        localStorageService.LOCAL_STORAGE_KEYS.ACCESS_TOKEN,
+    const accessToken = cookieService.get<string>(
+        cookieService.COOKIE_KEYS.ACCESS_TOKEN,
     )
 
     const getHttpMethod = (data: string, method: string) => {
@@ -47,7 +48,8 @@ const client = async <T>(
             if (error.response.status === 401) {
                 //refresh token, if failed, logout
                 try {
-                    await refreshToken()
+                    logout()
+                    // await refreshToken()
                 } catch (error) {
                     logout()
                 }
