@@ -57,7 +57,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 export function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { infoUser } = useAuth();
+  const { infoUser, setLogout } = useAuth();
 
   const [expanded, setExpanded] = React.useState<string | false>('panel1');
 
@@ -89,7 +89,7 @@ export function Sidebar() {
       </Box>
 
       {
-        SIDE_BAR.map((itemBar) => (
+        SIDE_BAR.map((itemBar,index) => (
           <Accordion key={itemBar.id} sx={{
             width: '100%',
             position: 'relative',
@@ -107,7 +107,13 @@ export function Sidebar() {
           }} expanded={expanded === itemBar.id} onChange={handleChange(itemBar.id)} TransitionProps={{
             timeout: 800,
           }}>
-            <AccordionSummary sx={{ backgroundColor: 'white' }} aria-controls={`${itemBar.id}-content`} id={`${itemBar.id}-header`} expandIcon={itemBar.child.length > 0 ? <ArrowForwardIosSharpIcon color="primary" sx={{ fontSize: '0.9rem' }} /> : null}>
+            <AccordionSummary onClick={()=>{
+              const eventClick = itemBar.function;
+              if(eventClick && index === SIDE_BAR.length - 1){
+                eventClick(setLogout);
+                router.push(itemBar.url);
+              }
+            }} sx={{ backgroundColor: 'white' }} aria-controls={`${itemBar.id}-content`} id={`${itemBar.id}-header`} expandIcon={itemBar.child.length > 0 ? <ArrowForwardIosSharpIcon color="primary" sx={{ fontSize: '0.9rem' }} /> : null}>
               <Typography color='textPrimary' className='font-europa-bold'>{itemBar.title}</Typography>
             </AccordionSummary>
             {

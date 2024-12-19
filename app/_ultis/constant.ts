@@ -69,8 +69,12 @@ export const SIDE_BAR = [
   {
     id: "bar-5",
     title: "Logout",
-    url: "",
-    function: ()=>{},
+    url: "/login",
+    function: (callback: any)=>{
+      if(callback){
+        callback();
+      }
+    },
     child: [],
   },
 ];
