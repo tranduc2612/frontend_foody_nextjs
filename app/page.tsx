@@ -1,15 +1,17 @@
 'use client'
 
-import { Button, Typography } from "@mui/material";
-import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import MyLoading from "./_components/loading";
+import { ROUTES } from "./_ultis/constant";
 
-export default function Home() {
+export default function Page() {
+  const router = useRouter();
+  useEffect(()=>{
+    router.push(ROUTES.RECIPES_FEED.url)
+  },[])
+
   return (
-    <div className="">
-      <div>yummly</div>
-      <Button variant="outlined" color="primary">
-        Click Me
-      </Button>
-    </div>
+    <MyLoading />
   );
 }

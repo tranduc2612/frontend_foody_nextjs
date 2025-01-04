@@ -16,3 +16,11 @@ interface LoginPayload {
     username: string;
     password: string;
 }
+
+interface RegisterPayload {
+    username: string;
+    password: string;
+    email: string;
+    DOB: string | Dayjs;
+    role: string;
+}

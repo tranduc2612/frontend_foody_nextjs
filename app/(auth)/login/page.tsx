@@ -1,12 +1,13 @@
 "use client";
 
 import { useLogin } from "@/app/_api/auth/hooks";
-import { useAuth } from "@/app/_provider";
+import { useAuth } from "@/app/_provider/auth";
 import { ResponseError } from "@/app/_types/response";
 import {
   Box,
   Button,
   Checkbox,
+  CircularProgress,
   FormControlLabel,
   FormGroup,
   TextField,
@@ -19,40 +20,48 @@ import { toast } from "react-toastify";
 import * as Yup from "yup";
 import { Formik, Form, Field, FormikHelpers } from "formik";
 import { handleResponseError } from "@/app/_ultis/common";
+import { useLoading } from "@/app/_provider/loading";
 
 const SignupSchema = Yup.object().shape({
   username: Yup.string()
-    .required("The username required !"),
+    .required("The username required")
+    .min(3,"The username is at least 3 character")
+    .max(20,"The username must not exceed 20 characters"),
   password: Yup.string()
-    .required("The password required !"),
+    .required("The password is required")
+    .min(3,"The password is at least 3 character")
+    .max(20,"The password must not exceed 20 characters"),
 });
 
 export default function Login() {
   const router = useRouter();
   const { isAuthenticated, setLogin, setLogout } = useAuth();
   const { mutateAsync: login, isPending } = useLogin();
+  const [loading,setLoading] = React.useState<boolean>(false);
 
   const handleLogin = async (value: LoginPayload, { setErrors }: FormikHelpers<LoginPayload>) => {
     try {
+      setLoading(true)
       const res = await login(value);
-      console.log(res);
-      // setLogin(res.data.accessToken,res.data);
-      // router.push("/user")
+      if(res){
+        const token = res.data.accessToken;
+        const isSuccess = setLogin(token,res.data);
+        if(isSuccess){
+          router.push("/user")
+        }
+      }
     } catch (error) {
       const responseError = error as ResponseError;
       const errorInfo = handleResponseError(responseError)
-      setErrors(errorInfo)           
+      setErrors(errorInfo)
+      setLoading(false) 
     }
   };
 
-  // if (isPending) {
-  //   return <></>;
-  // }
-
   return (
     <>
-      <Typography color="primary" variant="h4" align="center" className="mb-10">
-        Log in
+      <Typography fontWeight="600" color="primary" variant="h4" align="center" className="mb-5">
+        <span className="font-europa-bold">Log in</span>
       </Typography>
       <Formik
         initialValues={{
@@ -98,15 +107,15 @@ export default function Login() {
                 label="Remember me"
               />
             </FormGroup>
-            <Button className="" variant="contained" type="submit" fullWidth>
-              Log in
+            <Button className="" variant="contained" type="submit" fullWidth disabled={loading} startIcon={loading && <CircularProgress color="inherit" size="20px"/>}>
+               Log in
             </Button>
             <Box className="mt-5 w-full">
               <Typography color="textPrimary" variant="h6" textAlign="center">
                 Don't have an acount ?
               </Typography>
-              <Button className="mt-3" variant="outlined" fullWidth>
-                <Link href="/register">Sign up</Link>
+              <Button className="mt-3" variant="outlined" fullWidth onClick={()=>router.push("/register")}>
+                Sign up
               </Button>
             </Box>
           </Form>

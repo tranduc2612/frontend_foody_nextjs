@@ -3,7 +3,9 @@ import localFont from "next/font/local";
 import React from "react";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { AuthProvider } from "./_provider";
+import { AuthProvider } from "./_provider/auth";
+import { LoadingProvider } from "./_provider/loading";
+import { LocalizationDateProvider } from "./_provider/localization";
 import MuiProviders from "./_provider/mui";
 import { TanstackProvider } from "./_provider/tanstack";
 import "./globals.css";
@@ -41,9 +43,13 @@ export default function RootLayout({
       >
         <TanstackProvider>
           <AuthProvider>
-            <MuiProviders>
-              {children}
-            </MuiProviders>
+            <LoadingProvider>
+              <MuiProviders>
+                <LocalizationDateProvider>
+                  {children}
+                </LocalizationDateProvider>
+              </MuiProviders>
+            </LoadingProvider>
           </AuthProvider>
         </TanstackProvider>
         <ToastContainer />
