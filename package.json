@@ -7,8 +7,9 @@
     "build": "next build",
     "start": "next start -p 8080",
     "lint": "next lint",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test:ci": "jest --ci"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
