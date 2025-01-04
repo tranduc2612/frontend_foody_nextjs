@@ -20,7 +20,7 @@ import * as React from 'react';
 
 const Accordion = styled((props: AccordionProps) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
-))(({ theme }) => ({
+))(() => ({
   '&:not(:last-child)': {
     borderBottom: 0,
   },

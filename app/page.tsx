@@ -9,7 +9,7 @@ export default function Page() {
   const router = useRouter();
   useEffect(()=>{
     router.push(ROUTES.RECIPES_FEED.url)
-  },[])
+  },[router])
 
   return (
     <MyLoading />

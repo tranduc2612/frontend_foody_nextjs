@@ -1,6 +1,5 @@
-import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, IconButton, Paper, Typography, Rating } from "@mui/material"
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import { upperCaseString } from "@/app/_ultis/common";
+import { Box, Card, CardActions, CardContent, CardMedia, Rating, Typography } from "@mui/material";
 
 function CardRecipe() {
 
@@ -54,9 +53,9 @@ function CardRecipe() {
                 <Rating
                     name="simple-controlled"
                     value={3}
-                    onChange={(event, newValue) => {
+                    // onChange={(event, newValue) => {
 
-                    }}
+                    // }}
                 />
             </CardActions>
         </CardContent>
