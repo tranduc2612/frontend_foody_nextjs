@@ -7,6 +7,9 @@ import MyLoading from "../_components/loading";
 import { Box } from "@mui/material";
 import { Sidebar } from "../_components/sidebar";
 import Grid from '@mui/material/Grid2';
+import { Image } from "@unpic/react/nextjs";
+import images from "../assets";
+
 
 export default function Layout({
   children
@@ -26,8 +29,8 @@ export default function Layout({
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-        <Grid size={2}>
+      <Grid container spacing={0} className="relative">
+        <Grid size={2} className="sticky top-0 h-screen" sx={{boxShadow: '0 0 2em rgba(0, 0, 0, 0.12)', zIndex: 999}}>
           <Sidebar />
         </Grid>
         <Grid size={10}>

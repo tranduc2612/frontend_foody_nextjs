@@ -29,3 +29,9 @@ export function formatDayjsToString(date: Dayjs | null){
         return undefined
     }
 }
+
+export function upperCaseString(str: string){
+    if(str){
+        return str.toUpperCase()
+    }
+}
