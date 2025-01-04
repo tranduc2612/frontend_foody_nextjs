@@ -1,8 +1,5 @@
-import images from "@/app/assets";
-import { Image } from "@unpic/react/nextjs";
-import InputBase from '@mui/material/InputBase';
-import { Box, Button, Input, InputAdornment, SxProps, TextField, Theme } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
+import { Input, InputAdornment, SxProps, Theme } from "@mui/material";
 
 interface ITypeProp {
     value: string,

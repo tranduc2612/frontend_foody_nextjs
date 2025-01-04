@@ -3,6 +3,7 @@
 import { useLogin } from "@/app/_api/auth/hooks";
 import { useAuth } from "@/app/_provider/auth";
 import { ResponseError } from "@/app/_types/response";
+import { handleResponseError } from "@/app/_ultis/common";
 import {
   Box,
   Button,
@@ -13,14 +14,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import Link from "next/link";
+import { Form, Formik, FormikHelpers } from "formik";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { toast } from "react-toastify";
 import * as Yup from "yup";
-import { Formik, Form, Field, FormikHelpers } from "formik";
-import { handleResponseError } from "@/app/_ultis/common";
-import { useLoading } from "@/app/_provider/loading";
 
 const SignupSchema = Yup.object().shape({
   username: Yup.string()
@@ -35,8 +32,8 @@ const SignupSchema = Yup.object().shape({
 
 export default function Login() {
   const router = useRouter();
-  const { isAuthenticated, setLogin, setLogout } = useAuth();
-  const { mutateAsync: login, isPending } = useLogin();
+  const { setLogin } = useAuth();
+  const { mutateAsync: login } = useLogin();
   const [loading,setLoading] = React.useState<boolean>(false);
 
   const handleLogin = async (value: LoginPayload, { setErrors }: FormikHelpers<LoginPayload>) => {
@@ -71,7 +68,7 @@ export default function Login() {
         validationSchema={SignupSchema}
         onSubmit={handleLogin}
       >
-        {({ errors, touched, values, handleChange, setFieldValue, handleBlur }) => (
+        {({ errors, touched, values, handleChange, handleBlur }) => (
           <Form>
             <TextField
               name="username"
@@ -112,7 +109,7 @@ export default function Login() {
             </Button>
             <Box className="mt-5 w-full">
               <Typography color="textPrimary" variant="h6" textAlign="center">
-                Don't have an acount ?
+                Don&apos;t have an acount ?
               </Typography>
               <Button className="mt-3" variant="outlined" fullWidth onClick={()=>router.push("/register")}>
                 Sign up

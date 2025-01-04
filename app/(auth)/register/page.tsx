@@ -1,27 +1,22 @@
 "use client";
 
-import { useLogin, useRegister } from "@/app/_api/auth/hooks";
-import { useAuth } from "@/app/_provider/auth";
+import { useRegister } from "@/app/_api/auth/hooks";
 import { ResponseError } from "@/app/_types/response";
+import { formatDayjsToString, handleResponseError } from "@/app/_ultis/common";
 import {
     Box,
     Button,
-    Checkbox,
     CircularProgress,
-    FormControlLabel,
-    FormGroup,
     TextField,
-    Typography,
+    Typography
 } from "@mui/material";
-import Link from "next/link";
+import { DatePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
+import { Form, Formik, FormikHelpers } from "formik";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
-import { Formik, Form, Field, FormikHelpers } from "formik";
-import { formatDayjsToString, handleResponseError } from "@/app/_ultis/common";
-import { DatePicker } from "@mui/x-date-pickers";
-import dayjs from "dayjs";
 
 const SignupSchema = Yup.object().shape({
     username: Yup.string()
@@ -49,8 +44,8 @@ const SignupSchema = Yup.object().shape({
 
 export default function Register() {
     const router = useRouter();
-    const { isAuthenticated, setLogin, setLogout } = useAuth();
-    const { mutateAsync: register, isPending } = useRegister();
+    // const { isAuthenticated, setLogin, setLogout } = useAuth();
+    const { mutateAsync: register } = useRegister();
     const [loading, setLoading] = React.useState<boolean>(false)
 
     const handleLogin = async (value: RegisterPayload, { setErrors }: FormikHelpers<RegisterPayload>) => {

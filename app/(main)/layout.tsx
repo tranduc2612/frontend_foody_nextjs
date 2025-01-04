@@ -1,14 +1,9 @@
 "use client";
-import { useAuth } from "@/app/_provider/auth";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useLoading } from "../_provider/loading";
-import MyLoading from "../_components/loading";
 import { Box } from "@mui/material";
-import { Sidebar } from "../_components/sidebar";
 import Grid from '@mui/material/Grid2';
-import { Image } from "@unpic/react/nextjs";
-import images from "../assets";
+import MyLoading from "../_components/loading";
+import { Sidebar } from "../_components/sidebar";
+import { useLoading } from "../_provider/loading";
 
 
 export default function Layout({
@@ -16,16 +11,16 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const pathname = usePathname();
-  const router = useRouter();
+  // const pathname = usePathname();
+  // const router = useRouter();
   
   const {loading} = useLoading();
 
-  function switchLocale(locale: string) {
-    // e.g. '/en/about' or '/fr/contact'
-    const newPath = `/${{locale}}`
-    window.history.replaceState(null, '', newPath)
-  }
+  // function switchLocale(locale: string) {
+  //   // e.g. '/en/about' or '/fr/contact'
+  //   const newPath = `/${{locale}}`
+  //   window.history.replaceState(null, '', newPath)
+  // }
 
   return (
     <Box sx={{ flexGrow: 1 }}>

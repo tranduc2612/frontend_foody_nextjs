@@ -1,11 +1,10 @@
 'use client'
-import WapperBanner from "@/app/_components/wapper-banner";
-import SearchInput from "@/app/_components/search";
-import images from "@/app/assets";
-import { Box, Button, Card, CardActions, CardContent, Container, Paper, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import Grid from '@mui/material/Grid2';
 import CardRecipe from "@/app/_components/card-recipe";
+import SearchInput from "@/app/_components/search";
+import WapperBanner from "@/app/_components/wapper-banner";
+import { Box, Container, Typography } from "@mui/material";
+import Grid from '@mui/material/Grid2';
+import { useEffect, useState } from "react";
 
 export default function RecipesFeed() {
   const [searchValue, setSearchValue] = useState("");

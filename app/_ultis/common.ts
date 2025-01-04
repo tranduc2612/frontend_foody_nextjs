@@ -26,6 +26,7 @@ export function formatDayjsToString(date: Dayjs | null){
         const formattedDate = dayjs(date);
         return formattedDate.format("DD/MM/YYYY")
     }catch(error){
+        console.log(error);
         return undefined
     }
 }

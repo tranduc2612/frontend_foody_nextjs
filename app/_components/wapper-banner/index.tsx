@@ -4,8 +4,7 @@ import { Image } from "@unpic/react/nextjs";
 
 
 function WapperBanner({
-  children,
-  height = 500
+  children
 }: Readonly<{
   children: React.ReactNode,
   height?: number

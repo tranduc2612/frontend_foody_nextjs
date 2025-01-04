@@ -1,7 +1,5 @@
 // components/LoadingComponent.tsx
-import images from "@/app/assets";
 import { Box, CircularProgress } from "@mui/material";
-import Image from 'next/image'
 
 export default function MyLoading() {
   return (
