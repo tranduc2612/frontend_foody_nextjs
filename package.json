@@ -7,8 +7,10 @@
     "build": "next build",
     "start": "next start -p 8080",
     "lint": "next lint",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "lint:fix": "next lint --fix",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test:ci": "jest --ci"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -27,6 +29,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-toastify": "^10.0.6",
+    "sharp": "^0.33.5",
     "yup": "^1.4.0"
   },
   "devDependencies": {

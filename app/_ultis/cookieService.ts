@@ -21,7 +21,7 @@ const COOKIE_KEYS = {
   };
   
   // Hàm để lưu dữ liệu vào cookie
-  const set = (key: string, value: any, days = 7): void => {
+  const set = <T>(key: string, value: T, days = 7): void => {
     if (typeof document !== 'undefined') {
       const expires = new Date(Date.now() + days * 864e5).toUTCString();
       document.cookie = `${key}=${encodeURIComponent(

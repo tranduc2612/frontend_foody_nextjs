@@ -49,6 +49,7 @@ const client = async <T>(
                 try {
                     await refreshToken()
                 } catch (error) {
+                    console.log(error);
                     logout()
                 }
             }

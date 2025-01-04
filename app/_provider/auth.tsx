@@ -1,5 +1,4 @@
 "use client";
-import { localStorageService } from "@/app/_ultis/localStorageService";
 import * as React from "react";
 import { cookieService } from "../_ultis/cookieService";
 
@@ -12,18 +11,18 @@ export interface AuthContext {
 }
 
 const AuthContext = React.createContext<AuthContext | null>(null);
-const BASE_USER = {
-  id: 0,
-  username: "",
-  email: "",
-  firstName: "",
-  lastName: "",
-  gender: "",
-  image: "",
-  token: "",
-  accessToken: "",
-  refreshToken: "",
-};
+// const BASE_USER = {
+//   id: 0,
+//   username: "",
+//   email: "",
+//   firstName: "",
+//   lastName: "",
+//   gender: "",
+//   image: "",
+//   token: "",
+//   accessToken: "",
+//   refreshToken: "",
+// };
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const accessTokenLocal =
@@ -44,7 +43,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setToken(accessTokenLocal);
     setInfoUser(infoUserToken);
     setIsAuthenticated(!!token);
-  }, []);
+  }, [accessTokenLocal, infoUserToken, token]);
 
   const setLogin = (token: string, infoUser: Account): boolean => {
     if(!token){

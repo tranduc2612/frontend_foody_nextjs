@@ -1,10 +1,7 @@
 "use client";
-import { useAuth } from "@/app/_provider/auth";
 import { Box } from "@mui/material";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useLoading } from "../_provider/loading";
 import MyLoading from "../_components/loading";
+import { useLoading } from "../_provider/loading";
 
 export default function Layout({
   children
