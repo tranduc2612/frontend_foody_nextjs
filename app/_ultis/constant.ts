@@ -97,6 +97,10 @@ export const ROUTES = {
     url: "/recipes/feed",
     name: "recipes-feed",
   },
+  RECIPES_DETAIL: {
+    url: "/recipes/detail",
+    name: "recipes-detail",
+  },
   RECIPES_PERSIONAL: {
     url: "/recipes/personal",
     name: "recipes-persional",

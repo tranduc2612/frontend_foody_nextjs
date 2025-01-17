@@ -1,5 +1,5 @@
 // components/LoadingComponent.tsx
-import images from "@/app/assets";
+// import images from "@/app/assets";
 import { Box } from "@mui/material";
 import Image from 'next/image'
 
@@ -27,7 +27,7 @@ export default function Loading() {
         }}
       >
         <Image
-          src={images.loading.loading_original}
+          src="/images/loading-spinner-light-bg.gif"
           alt="Picture of the author"
         />
       </Box>
