@@ -7,7 +7,7 @@ import { Form, Formik, FormikHelpers } from "formik";
 
 export default function PageCreate() {
 
-    const handleCreateRecipe = async (value: LoginPayload, { setErrors }: FormikHelpers<LoginPayload>) => {
+    const handleCreateRecipe = async (value: RecipesPayload, { setErrors }: FormikHelpers<RecipesPayload>) => {
         try {
             console.log(value);
             
