@@ -11,6 +11,12 @@ export default function Loading() {
         <Image
             src="/images/loading-spinner-light-bg.gif"
             alt="Picture of the author"
+            width={0}
+            height={0}
+            style={{
+              width: '100%',
+              height: '100%'
+            }}
         />
     </Box>
   );
