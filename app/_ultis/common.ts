@@ -36,3 +36,14 @@ export function upperCaseString(str: string){
         return str.toUpperCase()
     }
 }
+
+export function convertPercentStringtoNumber(value: string | number){
+    if(typeof value === 'number'){
+        return value
+    }
+    if(value){
+        const valueWithoutPercent = value.replace('%', '');
+        const finalValue = parseFloat(valueWithoutPercent) || 0;
+        return finalValue;
+    }
+}

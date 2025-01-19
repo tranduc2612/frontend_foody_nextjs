@@ -11,11 +11,16 @@ export const SIDE_BAR = [
       },
       {
         id: "bar-1-2",
+        title: "Create Your Recipes",
+        url: "/recipes/create",
+      },
+      {
+        id: "bar-1-3",
         title: "Persional Recipes",
         url: "/recipes/personal",
       },
       {
-        id: "bar-1-3",
+        id: "bar-1-4",
         title: "Guided Recipes",
         url: "/guided/recipes",
       },
@@ -96,6 +101,10 @@ export const ROUTES = {
   RECIPES_FEED: {
     url: "/recipes/feed",
     name: "recipes-feed",
+  },
+  RECIPES_CREATE: {
+    url: "/recipes/create",
+    name: "recipes-create",
   },
   RECIPES_DETAIL: {
     url: "/recipes/detail",

@@ -20,6 +20,19 @@ interface Recipes{
   idDetailRecipes: DetailRecipes[];
 }
 
+interface RecipesPayload{
+    description: string
+    title: string
+    country: string
+    season: string
+    recipesType: string
+    calories: number | string
+    sodium: number | string
+    fat: number | string
+    carbs: number | string
+    fiber: number | string
+  }
+
 interface Step {
     id: string
     title: string
