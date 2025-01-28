@@ -26,11 +26,12 @@ interface RecipesPayload{
     country: string
     season: string
     recipesType: string
-    calories: number | string
-    sodium: number | string
-    fat: number | string
-    carbs: number | string
-    fiber: number | string
+    calories: string
+    sodium: string
+    fat: string
+    carbs: string
+    fiber: string
+    timeCook: string
   }
 
 interface Step {

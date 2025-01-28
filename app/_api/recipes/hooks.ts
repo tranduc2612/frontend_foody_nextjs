@@ -1,6 +1,6 @@
 import { Pagination, ResponseApi, ResponseError } from "@/app/_types/response";
-import { QueryKey, useQuery, UseQueryOptions } from "@tanstack/react-query";
-import { fetchListRecipes } from "./service";
+import { QueryKey, useMutation, UseMutationOptions, useQuery, UseQueryOptions } from "@tanstack/react-query";
+import { fetchCreateRecipes, fetchListRecipes } from "./service";
 import { queryKey } from "@/app/_ultis/constant";
 
 export const useGetListRecipes = (
@@ -23,4 +23,25 @@ export const useGetListRecipes = (
        ...options,
     }
     return useQuery<ResponseApi<Pagination<Recipes[]>>,ResponseError>(queryOptions)
+}
+
+export const useCreateRecipe = (
+	options?: UseMutationOptions<
+		ResponseApi<Account>,
+		Error,
+		RecipesPayload
+	>,
+) => {
+	return useMutation<
+		ResponseApi<Account>,
+		Error,
+		RecipesPayload
+	>({
+		mutationFn: async (input:RecipesPayload) => await fetchCreateRecipes(input),
+		...options,
+	} as UseMutationOptions<
+		ResponseApi<Account>,
+		Error,
+		RecipesPayload
+	>)
 }

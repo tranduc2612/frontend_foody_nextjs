@@ -2,23 +2,46 @@
 'use client'
 
 import WapperBox from "@/app/_components/box-wrapper";
-import { Box, Button, Container, FormControl, InputLabel, MenuItem, Select, Stack, TextField, Typography } from "@mui/material";
-import { Form, Formik, FormikHelpers } from "formik";
-import Grid from '@mui/material/Grid2';
-import { NumericFormat } from 'react-number-format';
 import { convertPercentStringtoNumber } from "@/app/_ultis/common";
+import { Box, Button, Container, FormControl, InputLabel, MenuItem, Select, styled, TextField, Typography } from "@mui/material";
+import Grid from '@mui/material/Grid2';
+import { TimePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
+import { Form, Formik, FormikHelpers } from "formik";
+import { NumericFormat } from 'react-number-format';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { useState } from "react";
+import { useCreateRecipe } from "@/app/_api/recipes/hooks";
+
+const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+});
 
 export default function PageCreate() {
+    const [previewImage, setPreviewImage] = useState<string>("");
+    const { mutateAsync: createRecipe } = useCreateRecipe();
 
     const handleCreateRecipe = async (value: RecipesPayload, { setErrors }: FormikHelpers<RecipesPayload>) => {
         try {
             console.log(value);
             console.log(convertPercentStringtoNumber(value.calories))
-
+            createRecipe(value);
         } catch (error) {
 
         }
     };
+
+    const handleChangeImagePreview = (event: any) => {
+        setPreviewImage(URL.createObjectURL(event.target.files[0]))
+    }
 
     return <Box className="mb-5">
         <Container>
@@ -33,11 +56,12 @@ export default function PageCreate() {
                             country: "",
                             season: "",
                             recipesType: "",
-                            calories: 0,
-                            sodium: 0,
-                            fat: 0,
-                            carbs: 0,
-                            fiber: 0
+                            calories: "",
+                            sodium: "",
+                            fat: "",
+                            carbs: "",
+                            fiber: "",
+                            timeCook: dayjs().toString()
                         }}
                         // validationSchema={SignupSchema}
                         onSubmit={handleCreateRecipe}
@@ -49,7 +73,7 @@ export default function PageCreate() {
                                     id="title"
                                     label="Title"
                                     type="text"
-                                    className="mb-4"
+                                    className="mb-6"
                                     value={values.title}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
@@ -58,9 +82,44 @@ export default function PageCreate() {
                                     placeholder="Enter your title..."
                                     margin="dense"
                                     size="small"
+                                    variant="standard"
                                     fullWidth
                                 />
 
+                                <Box className="mb-6 flex">
+                                    <Box>
+                                        <InputLabel className="mb-3" id="image">Image banner</InputLabel>
+                                        <Button
+                                            component="label"
+                                            role={undefined}
+                                            variant="outlined"
+                                            tabIndex={-1}
+                                            startIcon={<CloudUploadIcon />}
+                                        >
+                                            Upload files
+                                            <VisuallyHiddenInput
+                                                type="file"
+                                                onChange={handleChangeImagePreview}
+                                                multiple
+                                            />
+                                        </Button>
+                                    </Box>
+                                    <Box className="ml-10">
+                                        {
+                                            previewImage &&
+                                            <img
+                                                src={previewImage}
+                                                style={{
+                                                    width: "400px",
+                                                    height: "400px",
+                                                    objectFit: "cover",
+                                                    borderRadius: "8px",
+                                                    border: "1px solid #ccc",
+                                                }}
+                                            />
+                                        }
+                                    </Box>
+                                </Box>
 
                                 <FormControl fullWidth variant="standard" className="mb-6">
                                     <InputLabel id="country">Country</InputLabel>
@@ -111,8 +170,18 @@ export default function PageCreate() {
                                     </Select>
                                 </FormControl>
 
+                                <Box className="mb-6">
+                                    <TimePicker label="Time cook"
+                                        name="timeCook"
+                                        sx={{ width: "100%" }}
+                                        value={dayjs(values.timeCook)}
+                                        slotProps={{ textField: { size: 'small', variant: 'standard' } }}
+                                        ampm={false}
+                                    />
+                                </Box>
+
                                 <Box className="mt-3 mb-5">
-                                    <Typography variant="overline" className="text-lg">Create your recipe</Typography>
+                                    <Typography variant="overline" className="text-lg">Nutrition</Typography>
 
                                     <Grid container spacing={4} marginTop={2}>
                                         <Grid size={4}>
