@@ -27,20 +27,20 @@ export const useGetListRecipes = (
 
 export const useCreateRecipe = (
 	options?: UseMutationOptions<
-		ResponseApi<Account>,
+		ResponseApi<Recipes>,
 		Error,
 		RecipesPayload
 	>,
 ) => {
 	return useMutation<
-		ResponseApi<Account>,
+		ResponseApi<Recipes>,
 		Error,
 		RecipesPayload
 	>({
 		mutationFn: async (input:RecipesPayload) => await fetchCreateRecipes(input),
 		...options,
 	} as UseMutationOptions<
-		ResponseApi<Account>,
+		ResponseApi<Recipes>,
 		Error,
 		RecipesPayload
 	>)

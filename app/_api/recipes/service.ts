@@ -10,7 +10,7 @@ export const fetchListRecipes = async (input: GetRecipesPayload): Promise<Respon
 
 
 export const fetchCreateRecipes = async (data: RecipesPayload): Promise<ResponseApi<Pagination<Recipes[]>>> => {
-    const recipes = client<ResponseApi<Pagination<Recipes[]>>>(`/recipes`, {
+    const recipes = client<ResponseApi<Pagination<Recipes[]>>>(`/recipes/create`, {
         method: 'POST',
         data
     })

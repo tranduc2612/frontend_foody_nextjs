@@ -2,7 +2,7 @@
 import CardRecipe from "@/app/_components/card-recipe";
 import { Box, Container, Typography } from "@mui/material";
 import Grid from '@mui/material/Grid2';
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGetListRecipes } from "@/app/_api/recipes/hooks";
 import InfiniteScroll from "react-infinite-scroll-component";
 import WapperBanner from "@/app/_components/wapper-banner";
@@ -19,13 +19,22 @@ export default function RecipesFeed() {
   });
 
   const total = response?.data.total || 0;
+  const isFirstRender = useRef(true);
 
-  // Fetch dữ liệu khi `pageIndex` thay đổi
+
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    
     const fetchData = async () => {
       const {data: response} = await fetchRecipesList();
       
-      const newItems: Recipes[] = response?.data.items.flat() || [];
+      const newItems: Recipes[] = response?.data.recipes || [];
+      console.log(newItems);
+      
+      
       setRecipesList((prev) => [...prev, ...newItems]); // Nối thêm dữ liệu
       setHasMore(newItems.length > 0); // Nếu không còn dữ liệu thì dừng
     };

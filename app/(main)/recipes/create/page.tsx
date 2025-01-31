@@ -2,7 +2,7 @@
 'use client'
 
 import WapperBox from "@/app/_components/box-wrapper";
-import { convertPercentStringtoNumber } from "@/app/_ultis/common";
+import { convertDateToMinutes, convertPercentStringtoNumber } from "@/app/_ultis/common";
 import { Box, Button, Container, FormControl, InputLabel, MenuItem, Select, styled, TextField, Typography } from "@mui/material";
 import Grid from '@mui/material/Grid2';
 import { TimePicker } from "@mui/x-date-pickers";
@@ -12,6 +12,7 @@ import { NumericFormat } from 'react-number-format';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useState } from "react";
 import { useCreateRecipe } from "@/app/_api/recipes/hooks";
+import { useAuth } from "@/app/_provider/auth";
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -25,19 +26,48 @@ const VisuallyHiddenInput = styled('input')({
     width: 1,
 });
 
+const INIT_VALUE: RecipesPayload = {
+    title: "",
+    description: "",
+    country: "",
+    season: "",
+    recipesType: "",
+    calories: "",
+    sodium: "",
+    fat: "",
+    carbs: "",
+    fiber: "",
+    timeCook: dayjs().toString()
+}
+
 export default function PageCreate() {
     const [previewImage, setPreviewImage] = useState<string>("");
     const { mutateAsync: createRecipe } = useCreateRecipe();
+    const { infoUser } = useAuth();
 
     const handleCreateRecipe = async (value: RecipesPayload, { setErrors }: FormikHelpers<RecipesPayload>) => {
         try {
-            console.log(value);
-            console.log(convertPercentStringtoNumber(value.calories))
-            createRecipe(value);
+            console.log(handleConvertPayload(value));
+            const req = handleConvertPayload(value);
+            createRecipe(req);
         } catch (error) {
 
         }
     };
+
+    const handleConvertPayload = (value: RecipesPayload) : RecipesPayload =>{
+        return {
+            ...value,
+            calories: convertPercentStringtoNumber(value.calories) || 0,
+            sodium: convertPercentStringtoNumber(value.sodium) || 0,
+            fat: convertPercentStringtoNumber(value.fat) || 0,
+            carbs: convertPercentStringtoNumber(value.carbs) || 0,
+            fiber: convertPercentStringtoNumber(value.fiber) || 0,
+            timeCook: convertDateToMinutes(value.timeCook) || 0,
+            imageTitle: previewImage,
+            createdBy: infoUser?.username
+        }
+    }
 
     const handleChangeImagePreview = (event: any) => {
         setPreviewImage(URL.createObjectURL(event.target.files[0]))
@@ -50,19 +80,7 @@ export default function PageCreate() {
 
                 <Container maxWidth="md">
                     <Formik
-                        initialValues={{
-                            title: "",
-                            description: "",
-                            country: "",
-                            season: "",
-                            recipesType: "",
-                            calories: "",
-                            sodium: "",
-                            fat: "",
-                            carbs: "",
-                            fiber: "",
-                            timeCook: dayjs().toString()
-                        }}
+                        initialValues={INIT_VALUE}
                         // validationSchema={SignupSchema}
                         onSubmit={handleCreateRecipe}
                     >
