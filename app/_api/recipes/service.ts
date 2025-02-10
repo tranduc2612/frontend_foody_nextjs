@@ -8,6 +8,12 @@ export const fetchListRecipes = async (input: GetRecipesPayload): Promise<Respon
     return recipes
 }
 
+export const fetchListRecipeTypes = async (): Promise<ResponseApi<RecipesType[]>> => {
+    const recipeTypes = client<ResponseApi<RecipesType[]>>(`/recipes/list-recipe-types`, {
+        method: 'GET'
+    })
+    return recipeTypes
+}
 
 export const fetchCreateRecipes = async (data: RecipesPayload): Promise<ResponseApi<Pagination<Recipes[]>>> => {
     const recipes = client<ResponseApi<Pagination<Recipes[]>>>(`/recipes/create`, {

@@ -11,8 +11,10 @@ import { Form, Formik, FormikHelpers } from "formik";
 import { NumericFormat } from 'react-number-format';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useState } from "react";
-import { useCreateRecipe } from "@/app/_api/recipes/hooks";
+import { useCreateRecipe, useGetListRecipeTypes } from "@/app/_api/recipes/hooks";
 import { useAuth } from "@/app/_provider/auth";
+import { useGetListCountries } from "@/app/_api/countries/hooks";
+import { useGetListSeasons } from "@/app/_api/season/hooks";
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -42,8 +44,14 @@ const INIT_VALUE: RecipesPayload = {
 
 export default function PageCreate() {
     const [previewImage, setPreviewImage] = useState<string>("");
+    const [imageFile, setImageFile] = useState();
     const { mutateAsync: createRecipe } = useCreateRecipe();
+    const { data: countries, refetch: fetchListCountries } = useGetListCountries();
+    const { data: season, refetch: fetchSeason } = useGetListSeasons();
+    const { data: recipeType, refetch: fetchRecipeTypes } = useGetListRecipeTypes();
+
     const { infoUser } = useAuth();
+    
 
     const handleCreateRecipe = async (value: RecipesPayload, { setErrors }: FormikHelpers<RecipesPayload>) => {
         try {
@@ -64,12 +72,13 @@ export default function PageCreate() {
             carbs: convertPercentStringtoNumber(value.carbs) || 0,
             fiber: convertPercentStringtoNumber(value.fiber) || 0,
             timeCook: convertDateToMinutes(value.timeCook) || 0,
-            imageTitle: previewImage,
+            imageTitle: imageFile,
             createdBy: infoUser?.username
         }
     }
 
     const handleChangeImagePreview = (event: any) => {
+        setImageFile(event.target.files[0])
         setPreviewImage(URL.createObjectURL(event.target.files[0]))
     }
 
@@ -149,9 +158,11 @@ export default function PageCreate() {
                                         name="country"
                                         onChange={handleChange}
                                     >
-                                        <MenuItem value={10}>VietNam</MenuItem>
-                                        <MenuItem value={20}>America</MenuItem>
-                                        <MenuItem value={30}>Italy</MenuItem>
+                                        {
+                                            countries && countries.data && countries.data.map(item =>{
+                                                return <MenuItem key={item.id} value={item.id}>{item.content}</MenuItem>
+                                            })
+                                        }
                                     </Select>
                                 </FormControl>
 
@@ -160,15 +171,14 @@ export default function PageCreate() {
                                     <Select
                                         labelId="season"
                                         id="season-select"
-                                        value={values.country}
+                                        value={values.season}
                                         label="Season"
                                         name="season"
                                         onChange={handleChange}
                                     >
-                                        <MenuItem value={10}>Spring</MenuItem>
-                                        <MenuItem value={20}>Summer</MenuItem>
-                                        <MenuItem value={30}>Autumn</MenuItem>
-                                        <MenuItem value={30}>Winter</MenuItem>
+                                        {
+                                            season && season.data && season.data.map(item=><MenuItem key={item.id} value={item.id}>{item.content}</MenuItem>)
+                                        }
                                     </Select>
                                 </FormControl>
 
@@ -182,9 +192,9 @@ export default function PageCreate() {
                                         name="recipesType"
                                         onChange={handleChange}
                                     >
-                                        <MenuItem value={10}>Breakfast</MenuItem>
-                                        <MenuItem value={20}>Dinner</MenuItem>
-                                        <MenuItem value={30}>Appetizer</MenuItem>
+                                        {
+                                            recipeType && recipeType.data && recipeType.data.map(item=><MenuItem key={item.id} value={item.id}>{item.content}</MenuItem>)
+                                        }
                                     </Select>
                                 </FormControl>
 
