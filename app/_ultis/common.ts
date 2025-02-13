@@ -36,3 +36,28 @@ export function upperCaseString(str: string){
         return str.toUpperCase()
     }
 }
+
+export function convertPercentStringtoNumber(value: string | number){
+    if(typeof value === 'number'){
+        return value
+    }
+    if(value){
+        const valueWithoutPercent = value.replace('%', '');
+        const finalValue = parseFloat(valueWithoutPercent) || 0;
+        return finalValue;
+    }
+}
+
+/**
+ * 
+ * @param value "Fri, 31 Jan 2025 06:09:11 GMT"
+ * @returns 
+ */
+export function convertDateToMinutes(value: string | number){
+    if(typeof value === 'number'){
+        return value
+    }
+    const date = new Date(value); 
+    const minutes = Math.floor(date.getTime() / 60000); 
+    return minutes
+}
