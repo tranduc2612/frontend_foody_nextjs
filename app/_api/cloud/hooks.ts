@@ -3,7 +3,7 @@ import { queryKey } from "@/app/_ultis/constant";
 import { QueryKey, useQuery, UseQueryOptions } from "@tanstack/react-query";
 import { fetchListCountries } from "./service";
 
-export const useGetListCountries = (
+export const useUploadImage = (
     input?: any,
     options?: UseQueryOptions<
     ResponseApi<Country[]>,
@@ -18,7 +18,7 @@ export const useGetListCountries = (
         ResponseApi<Country[]>,
         QueryKey
     > = {
-        queryKey: [queryKey.RECIPES.GET_LIST_COUNTRIES,input],
+        queryKey: [queryKey.CLOUD.UPLOAD_IMAGE,input],
         queryFn: async () => fetchListCountries(),
        ...options,
     }

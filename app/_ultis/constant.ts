@@ -90,6 +90,9 @@ export const queryKey = {
     GET_LIST_COUNTRIES: "GET_LIST_COUNTRIES",
     GET_LIST_RECIPETYPES: "GET_LIST_RECIPETYPES"
   },
+  CLOUD: {
+    UPLOAD_IMAGE: "UPLOAD_IMAGE"
+  }
 };
 
 export const ROUTES = {
