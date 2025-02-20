@@ -4,7 +4,7 @@ import { cookieService } from './app/_ultis/cookieService';
 import { ROUTES } from './app/_ultis/constant';
 
 // Danh sách các route yêu cầu đăng nhập
-const authorizedRoutes = [ROUTES.USER.url, ROUTES.USER_PROFILE.url, ROUTES.RECIPES_PERSIONAL.url];
+const authorizedRoutes = [ROUTES.USER.url, ROUTES.USER_PROFILE.url,ROUTES.RECIPES_CREATE.url, ROUTES.RECIPES_PERSIONAL.url];
 const unAuthorizedRoutes = [ROUTES.LOGIN.url, ROUTES.REGISTER.url];
 
 

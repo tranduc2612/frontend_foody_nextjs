@@ -43,7 +43,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setToken(accessTokenLocal);
     setInfoUser(infoUserToken);
     setIsAuthenticated(!!token);
-  }, [accessTokenLocal, infoUserToken, token]);
+  }, [token]);
 
   const setLogin = (token: string, infoUser: Account): boolean => {
     if(!token){

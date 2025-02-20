@@ -20,6 +20,12 @@ interface Recipes{
   idDetailRecipes: DetailRecipes[];
 }
 
+interface RecipesPayload{
+    description: string
+    title: string
+    country: string
+  }
+
 interface Step {
     id: string
     title: string
