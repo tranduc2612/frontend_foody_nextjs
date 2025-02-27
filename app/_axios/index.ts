@@ -4,7 +4,6 @@ import config from "@/app/_ultis/config";
 import {jwtDecode} from 'jwt-decode';
 import { refreshToken, logout } from "@/app/_api/auth/service";
 import { cookieService } from "../_ultis/cookieService";
-axios.defaults.baseURL = config.apiUrl
 
 const client = async <T>(
     endpoint: string,
@@ -13,6 +12,7 @@ const client = async <T>(
     const accessToken = cookieService.get<string>(
         cookieService.COOKIE_KEYS.ACCESS_TOKEN,
     )
+    axios.defaults.baseURL = config.apiUrl
 
     const getHttpMethod = (data: string, method: string) => {
         if (method) return method

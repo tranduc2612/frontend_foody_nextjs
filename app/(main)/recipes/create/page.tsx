@@ -2,7 +2,7 @@
 'use client'
 
 import WapperBox from "@/app/_components/box-wrapper";
-import { convertDateToMinutes, convertPercentStringtoNumber } from "@/app/_ultis/common";
+import { checkResponseSuccess, convertDateToMinutes, convertPercentStringtoNumber } from "@/app/_ultis/common";
 import { Box, Button, Container, FormControl, InputLabel, MenuItem, Select, styled, TextField, Typography } from "@mui/material";
 import Grid from '@mui/material/Grid2';
 import { TimePicker } from "@mui/x-date-pickers";
@@ -15,6 +15,7 @@ import { useCreateRecipe, useGetListRecipeTypes } from "@/app/_api/recipes/hooks
 import { useAuth } from "@/app/_provider/auth";
 import { useGetListSeasons } from "@/app/_api/season/hooks";
 import { useGetListCountries } from "@/app/_api/countries/hooks";
+import { useUploadImage } from "@/app/_api/cloud/hooks";
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -44,11 +45,12 @@ const INIT_VALUE: RecipesPayload = {
 
 export default function PageCreate() {
     const [previewImage, setPreviewImage] = useState<string>("");
-    const [imageFile, setImageFile] = useState();
+    const [imageFile, setImageFile] = useState<File | null>(null);
     const { mutateAsync: createRecipe } = useCreateRecipe();
     const { data: countries, refetch: fetchListCountries } = useGetListCountries();
     const { data: season, refetch: fetchSeason } = useGetListSeasons();
     const { data: recipeType, refetch: fetchRecipeTypes } = useGetListRecipeTypes();
+    const { mutateAsync: upload } = useUploadImage();
 
     const { infoUser } = useAuth();
     
@@ -57,7 +59,19 @@ export default function PageCreate() {
         try {
             console.log(handleConvertPayload(value));
             const req = handleConvertPayload(value);
-            createRecipe(req);
+            const formData = new FormData();
+                if(imageFile){
+                    formData.append("file", imageFile);
+                    const uploadCloud = await upload(formData);
+                    console.log(uploadCloud);
+                    
+                }
+            // const resCreate = await createRecipe(req);
+            // if(checkResponseSuccess(resCreate)){
+                
+            // }
+            // console.log(resCreate);
+            
         } catch (error) {
 
         }
@@ -72,7 +86,6 @@ export default function PageCreate() {
             carbs: convertPercentStringtoNumber(value.carbs) || 0,
             fiber: convertPercentStringtoNumber(value.fiber) || 0,
             timeCook: convertDateToMinutes(value.timeCook) || 0,
-            imageTitle: imageFile,
             createdBy: infoUser?.username
         }
     }

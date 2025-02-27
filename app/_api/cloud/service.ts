@@ -1,7 +1,7 @@
 import uploadClient from "@/app/_axios/upload"
 
-export const uploadImageAWS = async (file: Blob): Promise<any> => {
-    const res = uploadClient<any>(`/upload`, {
+export const uploadImageAWS = async (file: FormData): Promise<any> => {
+    const res = uploadClient<any>(`/aws/upload`, {
         method: 'POST',
         data: file
     })

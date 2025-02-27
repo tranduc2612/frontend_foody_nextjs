@@ -1,5 +1,5 @@
 import dayjs, { Dayjs } from "dayjs";
-import { ResponseError } from "../_types/response";
+import { ResponseApi, ResponseError } from "../_types/response";
 
 export function handleResponseError (responseError: ResponseError){
     const errorInfo: { [key: string]: string } = {}
@@ -15,6 +15,13 @@ export function handleResponseError (responseError: ResponseError){
         }
     }
     return errorInfo
+}
+
+export function checkResponseSuccess (responseSuccess: ResponseApi<any>){
+    if(responseSuccess.data && !responseSuccess.error){
+        return true
+    }
+    return false
 }
 
 
