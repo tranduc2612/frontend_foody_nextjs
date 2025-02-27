@@ -18,7 +18,7 @@ export default function RecipesFeed() {
     pageIndex,
   });
 
-  const total = response?.data.total || 0;
+  // const total = response?.data.total || 0;
   const isFirstRender = useRef(true);
 
 

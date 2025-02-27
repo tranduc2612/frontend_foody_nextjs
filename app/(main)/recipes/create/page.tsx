@@ -13,8 +13,8 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useState } from "react";
 import { useCreateRecipe, useGetListRecipeTypes } from "@/app/_api/recipes/hooks";
 import { useAuth } from "@/app/_provider/auth";
-import { useGetListCountries } from "@/app/_api/cloud/hooks";
 import { useGetListSeasons } from "@/app/_api/season/hooks";
+import { useGetListCountries } from "@/app/_api/countries/hooks";
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -159,7 +159,7 @@ export default function PageCreate() {
                                         onChange={handleChange}
                                     >
                                         {
-                                            countries && countries.data && countries.data.map(item =>{
+                                            countries && countries.data && countries.data.map((item: Country) =>{
                                                 return <MenuItem key={item.id} value={item.id}>{item.content}</MenuItem>
                                             })
                                         }

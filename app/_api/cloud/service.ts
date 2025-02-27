@@ -1,10 +1,9 @@
-import client from "@/app/_axios"
-import { Pagination, ResponseApi, ResponseError } from "@/app/_types/response"
+import uploadClient from "@/app/_axios/upload"
 
-export const fetchUploadImageAWS = async (): Promise<ResponseApi<Country[]>> => {
-    const recipes = client<ResponseApi<Country[]>>(`/common/list-countries`, {
+export const uploadImageAWS = async (file: Blob): Promise<any> => {
+    const res = uploadClient<any>(`/upload`, {
         method: 'POST',
-        
+        data: file
     })
-    return recipes
+    return res
 }

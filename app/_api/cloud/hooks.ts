@@ -1,26 +1,27 @@
+
 import { Pagination, ResponseApi, ResponseError } from "@/app/_types/response";
 import { queryKey } from "@/app/_ultis/constant";
 import { QueryKey, useQuery, UseQueryOptions } from "@tanstack/react-query";
-import { fetchListCountries } from "./service";
+import { uploadImageAWS } from "./service";
 
 export const useUploadImage = (
-    input?: any,
+    input: Blob,
     options?: UseQueryOptions<
-    ResponseApi<Country[]>,
+    ResponseApi<string>,
     ResponseError,
-    ResponseApi<Country[]>,
+    ResponseApi<string>,
     QueryKey
     >,
 ) => {
     const queryOptions: UseQueryOptions<
-        ResponseApi<Country[]>,
+        ResponseApi<string>,
         ResponseError,
-        ResponseApi<Country[]>,
+        ResponseApi<string>,
         QueryKey
     > = {
         queryKey: [queryKey.CLOUD.UPLOAD_IMAGE,input],
-        queryFn: async () => fetchListCountries(),
+        queryFn: async () => uploadImageAWS(input),
        ...options,
     }
-    return useQuery<ResponseApi<Country[]>,ResponseError>(queryOptions)
+    return useQuery<ResponseApi<string>,ResponseError>(queryOptions)
 }
