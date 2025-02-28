@@ -16,7 +16,7 @@ export interface ErrorField{
 }
 
 export interface Pagination<T> {
-    items: T[];
+    [key: string]: T;
     total: number;
     totalPages: number;
     currentPage: number;

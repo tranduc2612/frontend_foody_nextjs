@@ -5,14 +5,14 @@ import {jwtDecode} from 'jwt-decode';
 import { refreshToken, logout } from "@/app/_api/auth/service";
 import { cookieService } from "../_ultis/cookieService";
 
-const client = async <T>(
+const uploadClient = async <T>(
     endpoint: string,
     requestConfig: AxiosRequestConfig,
 ) => {
     const accessToken = cookieService.get<string>(
         cookieService.COOKIE_KEYS.ACCESS_TOKEN,
     )
-    axios.defaults.baseURL = config.apiUrl
+    axios.defaults.baseURL = config.apiCloud
 
     const getHttpMethod = (data: string, method: string) => {
         if (method) return method
@@ -65,4 +65,4 @@ const client = async <T>(
         })
 }
 
-export default client
+export default uploadClient

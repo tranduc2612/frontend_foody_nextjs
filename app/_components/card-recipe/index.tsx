@@ -10,7 +10,7 @@ function CardRecipe({ recipe }: { recipe: Recipes }) {
       sx={{
         maxWidth: 345,
         "&:hover .overlay": {
-          top: 100,
+          top: 50,
         },
         "&:hover .text-overlay": {
           top: 180,
@@ -25,27 +25,30 @@ function CardRecipe({ recipe }: { recipe: Recipes }) {
         }}
       >
         <CardMedia
+          sx={{
+            height: 194
+          }}
           component="img"
           height="194"
-          image="https://lh3.googleusercontent.com/xcRDZsPMmv9Zdx5x7-jkInac3tTlzpkPc36RFmQpmhbGdNQocR7hLw6oNuJWSgwpLa0CFqXsrLTcI_opBtEr=w220-h220-c-rw-v1-e365"
+          image={recipe.imageTitle}
           alt="Paella dish"
         />
         {/* Lớp phủ gradient */}
-        <Box className="overlay absolute top-[200px] left-0 w-full h-full bg-gradient-to-b from-transparent to-black opacity-100 transition-all duration-[1200ms] ease z-[1]" />
-        <Typography
+        <Box className="overlay absolute top-[200px] left-0 w-full h-full bg-gradient-to-b from-transparent to-black opacity-100 transition-all duration-[600ms] ease z-[1]" />
+        {/* <Typography
           variant="body2"
           sx={{ color: "white" }}
           className="text-overlay absolute top-72 px-2 left-0 w-full transition-all duration-[1000ms] ease z-[1] line-clamp-2"
         >
           breakfast, dinner, fastfood, asian
-        </Typography>
+        </Typography> */}
       </Box>
       <CardContent className="relative z-2">
         <Typography
           variant="body2"
-          className=" h-16"
+          className="h-16 line-clamp-3"
         >
-            <span className="inline-block hover:text-main sub-text transition-all duration-[200ms] ease line-clamp-3">
+            <span className="inline-block hover:text-main sub-text transition-all duration-[200ms] ease">
                 {recipe.description}
             </span>
         </Typography>

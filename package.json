@@ -13,11 +13,11 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
-    "@emotion/react": "^11.13.3",
-    "@emotion/styled": "^11.13.0",
-    "@mui/icons-material": "^6.1.6",
-    "@mui/material": "^6.1.6",
-    "@mui/x-date-pickers": "^7.22.2",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^6.4.6",
+    "@mui/material": "^6.4.6",
+    "@mui/x-date-pickers": "^7.24.1",
     "@tanstack/react-query": "^5.59.15",
     "@tanstack/react-query-devtools": "^5.59.16",
     "@unpic/react": "^0.1.14",
@@ -29,6 +29,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-infinite-scroll-component": "^6.1.0",
+    "react-number-format": "^5.4.3",
     "react-toastify": "^10.0.6",
     "sharp": "^0.33.5",
     "yup": "^1.4.0"

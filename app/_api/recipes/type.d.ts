@@ -17,8 +17,26 @@ interface Recipes{
   idSeason: Season
   idRecipesType: RecipesType
   idCountry: Country;
+  imageTitle: string;
   idDetailRecipes: DetailRecipes[];
 }
+
+interface RecipesPayload{
+    description: string
+    title: string
+    country: string
+    season: string
+    recipesType: string
+    calories: string | number
+    sodium: string | number
+    fat: string | number
+    carbs: string | number
+    fiber: string | number
+    timeCook: string | number
+    imageTitle?: string
+    createdBy?: string
+  }
+
 
 interface Step {
     id: string

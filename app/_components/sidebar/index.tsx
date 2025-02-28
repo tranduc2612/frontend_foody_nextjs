@@ -2,7 +2,6 @@
 
 import { useAuth } from '@/app/_provider/auth';
 import { SIDE_BAR } from '@/app/_ultis/constant';
-import images from '@/app/assets';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import { Box, MenuItem, MenuList } from '@mui/material';
 import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
@@ -73,7 +72,9 @@ export function Sidebar() {
         <Image
           className='cursor-pointer'
           onClick={() => router.push("/dashboard")}
-          src={images.logo.svg}
+          src="/images/logo/Yummly_logo.png"
+          width={100}
+          height={100}
           alt="logo"
         />
       </Box>
