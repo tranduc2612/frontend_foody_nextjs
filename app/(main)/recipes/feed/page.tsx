@@ -14,7 +14,7 @@ export default function RecipesFeed() {
   const [hasMore, setHasMore] = useState(true); // Kiểm tra còn dữ liệu không
 
   const { data: response, refetch: fetchRecipesList } = useGetListRecipes({
-    pageCount: 5,
+    pageCount: 15,
     pageIndex,
   });
 
@@ -35,8 +35,8 @@ export default function RecipesFeed() {
       console.log(newItems);
       
       
-      setRecipesList((prev) => [...prev, ...newItems]); // Nối thêm dữ liệu
-      setHasMore(newItems.length > 0); // Nếu không còn dữ liệu thì dừng
+      setRecipesList((prev) => [...prev, ...newItems]);
+      setHasMore(newItems.length > 0);
     };
 
     fetchData();
@@ -53,21 +53,34 @@ export default function RecipesFeed() {
 
   return (
       <InfiniteScroll
-        dataLength={recipesList.length} // Độ dài dữ liệu đã hiển thị
-        next={loadMore} // Hàm gọi khi scroll gần cuối
-        hasMore={hasMore} // Kiểm tra còn dữ liệu để tải không
-        loader={<h4>Loading...</h4>} // Hiển thị khi đang tải
-        endMessage={<p>You have seen it all</p>} // Thông báo khi hết dữ liệu
+        dataLength={recipesList.length}
+        next={loadMore}
+        hasMore={hasMore}
+        loader={<h4>Loading...</h4>}
+        endMessage={<p>You have seen it all</p>}
       >
         <Box>
           {/* new feed */}
           <Container>
             <Grid container spacing={2}>
-              {recipesList.map((recipe, index) => (
-                <Grid key={index} size={2.4}>
-                  <CardRecipe recipe={recipe} /> {/* Truyền dữ liệu vào Card */}
-                </Grid>
-              ))}
+              {
+                recipesList.length > 0 ?
+                recipesList.map((recipe, index) => (
+                  <Grid key={index} size={2.4}>
+                    <CardRecipe recipe={recipe} />
+                  </Grid>
+                ))
+                :
+                <Box sx={{
+                  zIndex: '999',
+                  textAlign: 'center',
+                  width: '100%'
+                }}>
+                  <Typography variant="h4" textAlign="center" marginTop={10}>
+                    Nothing there... !
+                  </Typography>
+                </Box>
+              }
             </Grid>
           </Container>
         </Box>

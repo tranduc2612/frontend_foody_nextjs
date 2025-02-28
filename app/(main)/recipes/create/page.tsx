@@ -2,8 +2,9 @@
 'use client'
 
 import WapperBox from "@/app/_components/box-wrapper";
-import { checkResponseSuccess, convertDateToMinutes, convertPercentStringtoNumber } from "@/app/_ultis/common";
-import { Box, Button, Container, FormControl, InputLabel, MenuItem, Select, styled, TextField, Typography } from "@mui/material";
+import { checkResponseSuccess, convertDateToMinutes, convertPercentStringtoNumber, handleResponseError } from "@/app/_ultis/common";
+import { Box, CircularProgress, Container, FormControl, InputLabel, MenuItem, Select, styled, TextField, Typography } from "@mui/material";
+import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid2';
 import { TimePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
@@ -16,6 +17,11 @@ import { useAuth } from "@/app/_provider/auth";
 import { useGetListSeasons } from "@/app/_api/season/hooks";
 import { useGetListCountries } from "@/app/_api/countries/hooks";
 import { useUploadImage } from "@/app/_api/cloud/hooks";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import { ROUTES } from "@/app/_ultis/constant";
+import { ResponseError } from "@/app/_types/response";
+import SaveIcon from '@mui/icons-material/Save';
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -51,29 +57,41 @@ export default function PageCreate() {
     const { data: season, refetch: fetchSeason } = useGetListSeasons();
     const { data: recipeType, refetch: fetchRecipeTypes } = useGetListRecipeTypes();
     const { mutateAsync: upload } = useUploadImage();
+    const [loading,setLoading] = useState(false);
+    const router = useRouter();
 
     const { infoUser } = useAuth();
     
 
     const handleCreateRecipe = async (value: RecipesPayload, { setErrors }: FormikHelpers<RecipesPayload>) => {
         try {
+            setLoading(true);
             console.log(handleConvertPayload(value));
-            const req = handleConvertPayload(value);
             const formData = new FormData();
                 if(imageFile){
                     formData.append("file", imageFile);
                     const uploadCloud = await upload(formData);
                     console.log(uploadCloud);
-                    
+                    if(uploadCloud){
+                        const req = {
+                            ...handleConvertPayload(value),
+                            imageTitle: uploadCloud
+                        };
+                        const resCreate = await createRecipe(req);
+                        if(checkResponseSuccess(resCreate)){
+                            toast.success(resCreate.message)
+                            router.push(ROUTES.RECIPES_FEED.url)
+                            setLoading(false);
+                        }else{
+                            toast.error(resCreate.message)
+                            setLoading(false);
+                        }
+                    }
                 }
-            // const resCreate = await createRecipe(req);
-            // if(checkResponseSuccess(resCreate)){
-                
-            // }
-            // console.log(resCreate);
-            
         } catch (error) {
-
+            const responseError = error as ResponseError;
+            const errorInfo = handleResponseError(responseError);
+            console.log(errorInfo);
         }
     };
 
@@ -369,7 +387,13 @@ export default function PageCreate() {
                                 />
 
                                 <Box className="mt-5 w-full">
-                                    <Button className="mt-3 text-xl font-semibold" variant="contained" fullWidth type="submit">
+                                    <Button 
+                                        className="mt-3 text-xl font-semibold" 
+                                        variant="contained" 
+                                        fullWidth 
+                                        type="submit" 
+                                        disabled={loading} startIcon={loading && <CircularProgress color="inherit" size="20px"/>}
+                                    >
                                         Post
                                     </Button>
                                 </Box>

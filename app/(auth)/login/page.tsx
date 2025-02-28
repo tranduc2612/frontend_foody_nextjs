@@ -4,6 +4,7 @@ import { useLogin } from "@/app/_api/auth/hooks";
 import { useAuth } from "@/app/_provider/auth";
 import { ResponseError } from "@/app/_types/response";
 import { handleResponseError } from "@/app/_ultis/common";
+import { ROUTES } from "@/app/_ultis/constant";
 import {
   Box,
   Button,
@@ -44,7 +45,7 @@ export default function Login() {
         const token = res.data.accessToken;
         const isSuccess = setLogin(token,res.data);
         if(isSuccess){
-          router.push("/user")
+          router.push(ROUTES.RECIPES_FEED.url)
         }
       }
     } catch (error) {

@@ -6,20 +6,20 @@ import { uploadImageAWS } from "./service";
 
 export const useUploadImage = (
     options?: UseMutationOptions<
-		ResponseApi<String>,
+		string,
 		Error,
 		FormData
 	>
 ) => {
     return useMutation<
-		ResponseApi<String>,
+		string,
 		Error,
 		FormData
 	>({
 		mutationFn: async (input:FormData) => await uploadImageAWS(input),
 		...options,
 	} as UseMutationOptions<
-		ResponseApi<String>,
+		string,
 		Error,
 		FormData
 	>)

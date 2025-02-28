@@ -17,6 +17,7 @@ interface Recipes{
   idSeason: Season
   idRecipesType: RecipesType
   idCountry: Country;
+  imageTitle: string;
   idDetailRecipes: DetailRecipes[];
 }
 
