@@ -25,13 +25,16 @@ function CardRecipe({ recipe }: { recipe: Recipes }) {
         }}
       >
         <CardMedia
+          sx={{
+            height: 194
+          }}
           component="img"
           height="194"
           image={recipe.imageTitle}
           alt="Paella dish"
         />
         {/* Lớp phủ gradient */}
-        <Box className="overlay absolute top-[200px] left-0 w-full h-full bg-gradient-to-b from-transparent to-black opacity-100 transition-all duration-[1200ms] ease z-[1]" />
+        <Box className="overlay absolute top-[200px] left-0 w-full h-full bg-gradient-to-b from-transparent to-black opacity-100 transition-all duration-[600ms] ease z-[1]" />
         {/* <Typography
           variant="body2"
           sx={{ color: "white" }}

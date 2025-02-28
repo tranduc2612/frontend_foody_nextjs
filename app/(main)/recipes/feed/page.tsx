@@ -43,6 +43,9 @@ export default function RecipesFeed() {
   }, [pageIndex]);
 
   const loadMore = () => {
+    if(response?.data.total && response?.data.total < 15){
+      return
+    }
     setPageIndex((prev) => prev + 1); // Tăng số trang
   };
 
