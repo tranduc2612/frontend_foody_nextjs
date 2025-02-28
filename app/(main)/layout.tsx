@@ -54,7 +54,7 @@ export default function Layout({
                   Personalize Your Experience
                 </Typography>
                 <Typography variant="h3">
-                  What are your favorite cuisines?
+                  What are your favorite cuisines ?
                 </Typography>
               </Box>
             </Container>
