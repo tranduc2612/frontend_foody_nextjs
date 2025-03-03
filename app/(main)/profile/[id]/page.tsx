@@ -10,17 +10,13 @@ interface IProps {
 // Hàm generateStaticParams để xác định các tham số động (id)
 export async function generateStaticParams() {
   return [
-    { id: '1' },
-    { id: '2' },
-    { id: '3' },  // Thêm các id khác mà bạn muốn tạo trang tĩnh cho chúng
+    { id: "1" },
+    { id: "2" },
+    { id: "3" }, // Thêm các id khác mà bạn muốn tạo trang tĩnh cho chúng
   ];
 }
 
 export default function User({ params }: IProps) {
   const { id } = params;
-  return (
-    <div>
-      User ID: {id}
-    </div>
-  );
+  return <div>User ID: {id}</div>;
 }

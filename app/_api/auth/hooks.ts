@@ -1,11 +1,10 @@
-
 import { ResponseApi } from "@/app/_types/response";
-import { fetchLogin, fetchRegister } from "./service"
+import { fetchLogin, fetchRegister } from "./service";
 
 interface Error {
-    name: string;
-    message: string;
-    stack?: string;
+  name: string;
+  message: string;
+  stack?: string;
 }
 
 // export const useLogin = (
@@ -35,43 +34,19 @@ interface Error {
 import { useMutation, UseMutationOptions } from "@tanstack/react-query";
 
 export const useLogin = (
-	options?: UseMutationOptions<
-		ResponseApi<Account>,
-		Error,
-		LoginPayload
-	>,
+  options?: UseMutationOptions<ResponseApi<Account>, Error, LoginPayload>,
 ) => {
-	return useMutation<
-		ResponseApi<Account>,
-		Error,
-		LoginPayload
-	>({
-		mutationFn: async (input:LoginPayload) => await fetchLogin(input),
-		...options,
-	} as UseMutationOptions<
-		ResponseApi<Account>,
-		Error,
-		LoginPayload
-	>)
-}
+  return useMutation<ResponseApi<Account>, Error, LoginPayload>({
+    mutationFn: async (input: LoginPayload) => await fetchLogin(input),
+    ...options,
+  } as UseMutationOptions<ResponseApi<Account>, Error, LoginPayload>);
+};
 
 export const useRegister = (
-	options?: UseMutationOptions<
-		ResponseApi<Account>,
-		Error,
-		RegisterPayload
-	>,
+  options?: UseMutationOptions<ResponseApi<Account>, Error, RegisterPayload>,
 ) => {
-	return useMutation<
-		ResponseApi<Account>,
-		Error,
-		RegisterPayload
-	>({
-		mutationFn: async (input:RegisterPayload) => await fetchRegister(input),
-		...options,
-	} as UseMutationOptions<
-		ResponseApi<Account>,
-		Error,
-		RegisterPayload
-	>)
-}
+  return useMutation<ResponseApi<Account>, Error, RegisterPayload>({
+    mutationFn: async (input: RegisterPayload) => await fetchRegister(input),
+    ...options,
+  } as UseMutationOptions<ResponseApi<Account>, Error, RegisterPayload>);
+};

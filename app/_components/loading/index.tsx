@@ -17,7 +17,7 @@ export default function MyLoading() {
         zIndex: 9999,
       }}
     >
-      <CircularProgress color="primary" size={70}/>
+      <CircularProgress color="primary" size={70} />
     </Box>
   );
 }

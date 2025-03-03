@@ -1,56 +1,58 @@
-'use client'
+"use client";
 
-import { useAuth } from '@/app/_provider/auth';
-import { SIDE_BAR } from '@/app/_ultis/constant';
-import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
-import { Box, MenuItem, MenuList } from '@mui/material';
-import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
-import MuiAccordionDetails from '@mui/material/AccordionDetails';
+import { useAuth } from "@/app/_provider/auth";
+import { SIDE_BAR } from "@/app/_ultis/constant";
+import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
+import { Box, MenuItem, MenuList } from "@mui/material";
+import MuiAccordion, { AccordionProps } from "@mui/material/Accordion";
+import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import MuiAccordionSummary, {
   AccordionSummaryProps,
-} from '@mui/material/AccordionSummary';
-import Avatar from '@mui/material/Avatar';
-import { styled } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
-import Image from 'next/image';
-import { usePathname, useRouter } from 'next/navigation';
-import * as React from 'react';
-
+} from "@mui/material/AccordionSummary";
+import Avatar from "@mui/material/Avatar";
+import { styled } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
+import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
+import * as React from "react";
 
 const Accordion = styled((props: AccordionProps) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(() => ({
-  '&:not(:last-child)': {
+  "&:not(:last-child)": {
     borderBottom: 0,
   },
-  '&::before': {
-    display: 'none',
+  "&::before": {
+    display: "none",
   },
 }));
 
 const AccordionSummary = styled((props: AccordionSummaryProps) => (
   <MuiAccordionSummary
-    expandIcon={<ArrowForwardIosSharpIcon color='primary' sx={{ fontSize: '0.9rem' }} />}
+    expandIcon={
+      <ArrowForwardIosSharpIcon color="primary" sx={{ fontSize: "0.9rem" }} />
+    }
     {...props}
   />
 ))(({ theme }) => ({
-  backgroundColor: 'rgba(0, 0, 0, .03)',
-  '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
-    transform: 'rotate(90deg)'
+  backgroundColor: "rgba(0, 0, 0, .03)",
+  "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
+    transform: "rotate(90deg)",
   },
-  '&:hover .MuiTypography-root': { // Target Typography when hovered
+  "&:hover .MuiTypography-root": {
+    // Target Typography when hovered
     color: theme.palette.primary.main, // Change to primary color or any custom color
   },
-  '& .MuiAccordionSummary-content': {
+  "& .MuiAccordionSummary-content": {
     marginLeft: theme.spacing(1),
   },
-  ...theme.applyStyles('dark', {
-    backgroundColor: 'rgba(255, 255, 255, .05)',
+  ...theme.applyStyles("dark", {
+    backgroundColor: "rgba(255, 255, 255, .05)",
   }),
 }));
 
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-  padding: theme.spacing(0)
+  padding: theme.spacing(0),
 }));
 
 export function Sidebar() {
@@ -58,19 +60,18 @@ export function Sidebar() {
   const router = useRouter();
   const { infoUser } = useAuth();
 
-  const [expanded, setExpanded] = React.useState<string | false>('panel1');
+  const [expanded, setExpanded] = React.useState<string | false>("panel1");
 
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
       setExpanded(newExpanded ? panel : false);
     };
 
-
   return (
     <Box className="flex flex-col bg-white">
       <Box className="my-5 m-auto">
         <Image
-          className='cursor-pointer'
+          className="cursor-pointer"
           onClick={() => router.push("/dashboard")}
           src="/images/logo/Yummly_logo.png"
           width={100}
@@ -81,7 +82,7 @@ export function Sidebar() {
 
       <Box className="my-0 m-auto mb-10">
         <Avatar
-          className='cursor-pointer'
+          className="cursor-pointer"
           alt="Kevin"
           onClick={() => router.push("/profile/" + infoUser?.username)}
           src="/static/images/avatar/1.jpg"
@@ -89,49 +90,79 @@ export function Sidebar() {
         />
       </Box>
 
-      {
-        SIDE_BAR.map((itemBar) => (
-          <Accordion key={itemBar.id} sx={{
-            width: '100%',
-            position: 'relative',
-            '&:not(:last-child)::after': {
+      {SIDE_BAR.map(itemBar => (
+        <Accordion
+          key={itemBar.id}
+          sx={{
+            width: "100%",
+            position: "relative",
+            "&:not(:last-child)::after": {
               content: '""',
-              display: 'block',
-              position: 'absolute',
-              bottom: 0, 
-              left: '5%',
-              width: '90%',
-              opacity: '0.2',
-              height: '1px', 
-              backgroundColor: 'gray',
+              display: "block",
+              position: "absolute",
+              bottom: 0,
+              left: "5%",
+              width: "90%",
+              opacity: "0.2",
+              height: "1px",
+              backgroundColor: "gray",
             },
-          }} expanded={expanded === itemBar.id} onChange={handleChange(itemBar.id)} TransitionProps={{
+          }}
+          expanded={expanded === itemBar.id}
+          onChange={handleChange(itemBar.id)}
+          TransitionProps={{
             timeout: 800,
-          }}>
-            <AccordionSummary sx={{ backgroundColor: 'white' }} aria-controls={`${itemBar.id}-content`} id={`${itemBar.id}-header`} expandIcon={itemBar.child.length > 0 ? <ArrowForwardIosSharpIcon color="primary" sx={{ fontSize: '0.9rem' }} /> : null}>
-              <Typography color='textPrimary' className='font-europa-bold'>{itemBar.title}</Typography>
-            </AccordionSummary>
-            {
-               itemBar.child.length > 0 &&
-              <AccordionDetails>
-                <MenuList>
-                  {
-                    itemBar.child.map((childBar) => (
-                      <MenuItem key={childBar.id} className='h-10' sx={(theme) => ({
-                        borderLeft: pathname === childBar.url
-                          ? `4px solid ${theme.palette.primary.main}`
-                          : '4px solid transparent',
-                      })} onClick={() => router.push(childBar.url)}>
-                        <Typography color={pathname === childBar.url ? 'primary' : 'textPrimary'} className='font-europa-light text-sm'>{childBar.title}</Typography>
-                      </MenuItem>
-                    ))
-                  }
-                </MenuList>
-              </AccordionDetails>
+          }}
+        >
+          <AccordionSummary
+            sx={{ backgroundColor: "white" }}
+            aria-controls={`${itemBar.id}-content`}
+            id={`${itemBar.id}-header`}
+            expandIcon={
+              itemBar.child.length > 0 ? (
+                <ArrowForwardIosSharpIcon
+                  color="primary"
+                  sx={{
+                    fontSize: "0.9rem",
+                  }}
+                />
+              ) : null
             }
-          </Accordion>
-        ))
-      }
+          >
+            <Typography color="textPrimary" className="font-europa-bold">
+              {itemBar.title}
+            </Typography>
+          </AccordionSummary>
+          {itemBar.child.length > 0 && (
+            <AccordionDetails>
+              <MenuList>
+                {itemBar.child.map(childBar => (
+                  <MenuItem
+                    key={childBar.id}
+                    className="h-10"
+                    sx={theme => ({
+                      borderLeft:
+                        pathname === childBar.url
+                          ? `4px solid ${theme.palette.primary.main}`
+                          : "4px solid transparent",
+                    })}
+                    onClick={() => router.push(childBar.url)}
+                  >
+                    <Typography
+                      color={
+                        pathname === childBar.url ? "primary" : "textPrimary"
+                      }
+                      className="font-europa-light text-sm"
+                    >
+                      {childBar.title}
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </MenuList>
+            </AccordionDetails>
+          )}
+        </Accordion>
+      ))}
     </Box>
-  )
+  );
 }
