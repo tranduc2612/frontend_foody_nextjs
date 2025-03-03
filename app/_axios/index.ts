@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { localStorageService } from "@/app/_ultis/localStorageService";
 import config from "@/app/_ultis/config";
 import { jwtDecode } from "jwt-decode";
 import { refreshToken, logout } from "@/app/_api/auth/service";
@@ -56,8 +55,9 @@ const client = async <T>(
           logout();
           // await refreshToken()
         } catch (error) {
-          console.log(error);
-          logout();
+          if (error) {
+            logout();
+          }
         }
       }
       if (error.response) {

@@ -1,5 +1,5 @@
 import client from "@/app/_axios";
-import { Pagination, ResponseApi, ResponseError } from "@/app/_types/response";
+import { Pagination, ResponseApi } from "@/app/_types/response";
 
 export const fetchListRecipes = async (
   input: GetRecipesPayload,

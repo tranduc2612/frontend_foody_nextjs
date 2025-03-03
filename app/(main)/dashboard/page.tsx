@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 export default function Dashboard() {
   useEffect(() => {
-    console.log("hhh");
+    // console.log("hhh");
   }, []);
   return (
     <div className="">

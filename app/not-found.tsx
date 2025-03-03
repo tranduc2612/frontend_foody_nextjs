@@ -1,7 +1,6 @@
 "use client";
 import { Typography } from "@mui/material";
 import "./index.css";
-import Image from "next/image";
 
 export default function NotFound() {
   return (

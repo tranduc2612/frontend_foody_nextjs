@@ -24,7 +24,7 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid2";
 import { TimePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
-import { Form, Formik, FormikHelpers } from "formik";
+import { Form, Formik } from "formik";
 import { NumericFormat } from "react-number-format";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useState } from "react";
@@ -40,7 +40,6 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/app/_ultis/constant";
 import { ResponseError } from "@/app/_types/response";
-import SaveIcon from "@mui/icons-material/Save";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -72,11 +71,9 @@ export default function PageCreate() {
   const [previewImage, setPreviewImage] = useState<string>("");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const { mutateAsync: createRecipe } = useCreateRecipe();
-  const { data: countries, refetch: fetchListCountries } =
-    useGetListCountries();
-  const { data: season, refetch: fetchSeason } = useGetListSeasons();
-  const { data: recipeType, refetch: fetchRecipeTypes } =
-    useGetListRecipeTypes();
+  const { data: countries } = useGetListCountries();
+  const { data: season } = useGetListSeasons();
+  const { data: recipeType } = useGetListRecipeTypes();
   const { mutateAsync: upload } = useUploadImage();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -85,16 +82,14 @@ export default function PageCreate() {
 
   const handleCreateRecipe = async (
     value: RecipesPayload,
-    { setErrors }: FormikHelpers<RecipesPayload>,
+    // {}: FormikHelpers<RecipesPayload>,
   ) => {
     try {
       setLoading(true);
-      console.log(handleConvertPayload(value));
       const formData = new FormData();
       if (imageFile) {
         formData.append("file", imageFile);
         const uploadCloud = await upload(formData);
-        console.log(uploadCloud);
         if (uploadCloud) {
           const req = {
             ...handleConvertPayload(value),
@@ -113,8 +108,7 @@ export default function PageCreate() {
       }
     } catch (error) {
       const responseError = error as ResponseError;
-      const errorInfo = handleResponseError(responseError);
-      console.log(errorInfo);
+      const _errorInfo = handleResponseError(responseError);
     }
   };
 
@@ -150,14 +144,7 @@ export default function PageCreate() {
               // validationSchema={SignupSchema}
               onSubmit={handleCreateRecipe}
             >
-              {({
-                errors,
-                touched,
-                values,
-                handleChange,
-                handleBlur,
-                setValues,
-              }) => (
+              {({ errors, touched, values, handleChange, handleBlur }) => (
                 <Form>
                   <TextField
                     name="title"
@@ -201,6 +188,7 @@ export default function PageCreate() {
                       {previewImage && (
                         <img
                           src={previewImage}
+                          alt="preview"
                           style={{
                             width: "400px",
                             height: "400px",

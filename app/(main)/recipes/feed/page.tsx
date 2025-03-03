@@ -5,8 +5,6 @@ import Grid from "@mui/material/Grid2";
 import { useEffect, useRef, useState } from "react";
 import { useGetListRecipes } from "@/app/_api/recipes/hooks";
 import InfiniteScroll from "react-infinite-scroll-component";
-import WapperBanner from "@/app/_components/wapper-banner";
-import SearchInput from "@/app/_components/search";
 
 export default function RecipesFeed() {
   const [recipesList, setRecipesList] = useState<Recipes[]>([]); // Lưu danh sách công thức
@@ -31,8 +29,6 @@ export default function RecipesFeed() {
       const { data: response } = await fetchRecipesList();
 
       const newItems: Recipes[] = response?.data.recipes || [];
-      console.log(newItems);
-
       setRecipesList(prev => [...prev, ...newItems]);
       setHasMore(newItems.length > 0);
     };

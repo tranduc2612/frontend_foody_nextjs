@@ -29,19 +29,19 @@ export const fetchRegister = async (
 };
 
 export const refreshToken = async () => {
-  try {
-    // const accessToken = localStorageService.get<string>(
-    //     localStorageService.LOCAL_STORAGE_KEYS.ACCESS_TOKEN,
-    // )
-    // const token = await axios.post('https://dummyjson.com/auth/refresh',{
-    //     body: JSON.stringify({
-    //     refreshToken: accessToken,
-    //     expiresInMins: 30, // optional, defaults to 60
-    //   })})
-    //   return token
-  } catch (error) {
-    console.log(error);
-  }
+  // try {
+  //   // const accessToken = localStorageService.get<string>(
+  //   //     localStorageService.LOCAL_STORAGE_KEYS.ACCESS_TOKEN,
+  //   // )
+  //   // const token = await axios.post('https://dummyjson.com/auth/refresh',{
+  //   //     body: JSON.stringify({
+  //   //     refreshToken: accessToken,
+  //   //     expiresInMins: 30, // optional, defaults to 60
+  //   //   })})
+  //   //   return token
+  // } catch (error) {
+  //   // console.log(error);
+  // }
 };
 
 export const logout = async () => {

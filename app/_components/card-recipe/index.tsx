@@ -77,7 +77,7 @@ function CardRecipe({ recipe }: { recipe: Recipes }) {
                 fontSize="inherit"
               />
             }
-            onChange={(event, newValue) => {}}
+            onChange={() => {}}
           />
         </CardActions>
       </CardContent>

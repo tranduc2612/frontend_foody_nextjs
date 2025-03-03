@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+npm test || (
+    echo 'Your code need to be tested...................... !';
+    false;
+)
+
+npm run format-check || (
+    echo 'Your code need to be formated...................... !';
+    false;
+)
+
+npm run build || (
+    echo 'Build errorr...................... !';
+    false;
+)
