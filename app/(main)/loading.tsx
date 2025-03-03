@@ -1,7 +1,7 @@
 // components/LoadingComponent.tsx
 // import images from "@/app/assets";
 import { Box } from "@mui/material";
-import Image from 'next/image'
+import Image from "next/image";
 
 export default function Loading() {
   return (
@@ -32,8 +32,8 @@ export default function Loading() {
           width={0}
           height={0}
           style={{
-            width: '100%',
-            height: '100%'
+            width: "100%",
+            height: "100%",
           }}
         />
       </Box>

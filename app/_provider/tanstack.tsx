@@ -5,9 +5,9 @@ import * as React from "react";
 const queryClient = new QueryClient();
 export function TanstackProvider({ children }: { children: React.ReactNode }) {
   return (
-      <QueryClientProvider client={queryClient}>
-        {children}
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      {children}
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }

@@ -1,12 +1,12 @@
-import { Mixins } from '@mui/material/styles/createMixins';
+import { Mixins } from "@mui/material/styles/createMixins";
 
 const _mixins: Mixins = {
   toolbar: {
     minHeight: 56,
   },
   customMixin: {
-    padding: '16px',
-    backgroundColor: '#eee',
+    padding: "16px",
+    backgroundColor: "#eee",
   },
 };
 

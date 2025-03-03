@@ -1,11 +1,11 @@
 // src/theme.js
-import { createTheme } from '@mui/material/styles';
-import { CSSProperties } from '@mui/material/styles/createMixins';
-import _typography from './_typography';
-import _breakpoints from './_breakpoints';
-import _palette from './_palette';
-import _mixins from './_mixins';
-declare module '@mui/material/styles' {
+import { createTheme } from "@mui/material/styles";
+import { CSSProperties } from "@mui/material/styles/createMixins";
+import _typography from "./_typography";
+import _breakpoints from "./_breakpoints";
+import _palette from "./_palette";
+import _mixins from "./_mixins";
+declare module "@mui/material/styles" {
   interface Mixins {
     customMixin: CSSProperties;
   }
@@ -20,36 +20,36 @@ const theme = createTheme({
     borderRadius: 8, // Tạo border-radius cho các thành phần mặc định là 8px
   },
   mixins: _mixins,
-  components:{
+  components: {
     MuiButton: {
       styleOverrides: {
         root: {
-          fontFamily: 'var(--font-europa-regular)', // Áp dụng font cho Button
+          fontFamily: "var(--font-europa-regular)", // Áp dụng font cho Button
         },
       },
     },
     MuiTypography: {
       styleOverrides: {
         root: {
-          fontFamily: 'var(--font-europa-regular)', // Áp dụng font cho Typography
+          fontFamily: "var(--font-europa-regular)", // Áp dụng font cho Typography
         },
       },
     },
     MuiInputBase: {
       styleOverrides: {
         root: {
-          fontFamily: 'var(--font-europa-regular)', // Áp dụng font cho InputBase
+          fontFamily: "var(--font-europa-regular)", // Áp dụng font cho InputBase
         },
       },
     },
     MuiCollapse: {
       styleOverrides: {
         root: {
-          transitionTimingFunction: 'ease', // Áp dụng hiệu ứng ease
+          transitionTimingFunction: "ease", // Áp dụng hiệu ứng ease
         },
       },
     },
-  }
+  },
   // shadows: [
   //   'none',
   //   '0px 2px 4px rgba(0,0,0,0.2)',
