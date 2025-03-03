@@ -1,7 +1,15 @@
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import { upperCaseString } from "@/app/_ultis/common";
-import { Box, Card, CardActions, CardContent, CardMedia, Rating, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Rating,
+  Typography,
+} from "@mui/material";
 
 function CardRecipe({ recipe }: { recipe: Recipes }) {
   return (
@@ -26,7 +34,7 @@ function CardRecipe({ recipe }: { recipe: Recipes }) {
       >
         <CardMedia
           sx={{
-            height: 194
+            height: 194,
           }}
           component="img"
           height="194"
@@ -44,13 +52,10 @@ function CardRecipe({ recipe }: { recipe: Recipes }) {
         </Typography> */}
       </Box>
       <CardContent className="relative z-2">
-        <Typography
-          variant="body2"
-          className="h-16 line-clamp-3"
-        >
-            <span className="inline-block hover:text-main sub-text transition-all duration-[200ms] ease">
-                {recipe.description}
-            </span>
+        <Typography variant="body2" className="h-16 line-clamp-3">
+          <span className="inline-block hover:text-main sub-text transition-all duration-[200ms] ease">
+            {recipe.description}
+          </span>
         </Typography>
 
         <Typography
@@ -72,7 +77,7 @@ function CardRecipe({ recipe }: { recipe: Recipes }) {
                 fontSize="inherit"
               />
             }
-            onChange={(event, newValue) => {}}
+            onChange={() => {}}
           />
         </CardActions>
       </CardContent>

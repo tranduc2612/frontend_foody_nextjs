@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import localFont from "next/font/local";
 import React from "react";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider } from "./_provider/auth";
 import { LoadingProvider } from "./_provider/loading";
 import { LocalizationDateProvider } from "./_provider/localization";
@@ -32,14 +32,12 @@ export const metadata: Metadata = {
 };
 
 interface LayoutProps {
-  children: React.ReactNode
-  analytics: string,
-  team: string
+  children: React.ReactNode;
+  analytics: string;
+  team: string;
 }
 
-export default function RootLayout({
-  children
-}: LayoutProps) {
+export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
       <body
@@ -49,9 +47,7 @@ export default function RootLayout({
           <AuthProvider>
             <LoadingProvider>
               <MuiProviders>
-                <LocalizationDateProvider>
-                  {children}
-                </LocalizationDateProvider>
+                <LocalizationDateProvider>{children}</LocalizationDateProvider>
               </MuiProviders>
             </LoadingProvider>
           </AuthProvider>

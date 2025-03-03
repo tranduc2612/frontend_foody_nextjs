@@ -1,6 +1,6 @@
 "use client";
 import { Box, Container, Typography } from "@mui/material";
-import Grid from '@mui/material/Grid2';
+import Grid from "@mui/material/Grid2";
 import MyLoading from "../_components/loading";
 import { Sidebar } from "../_components/sidebar";
 import { useLoading } from "../_provider/loading";
@@ -8,9 +8,8 @@ import WapperBanner from "../_components/wapper-banner";
 import SearchInput from "../_components/search";
 import { useState } from "react";
 
-
 export default function Layout({
-  children
+  children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
@@ -29,7 +28,14 @@ export default function Layout({
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={0} className="relative">
-        <Grid size={2} className="sticky top-0 h-screen" sx={{ boxShadow: '0 0 2em rgba(0, 0, 0, 0.12)', zIndex: 999 }}>
+        <Grid
+          size={2}
+          className="sticky top-0 h-screen"
+          sx={{
+            boxShadow: "0 0 2em rgba(0, 0, 0, 0.12)",
+            zIndex: 999,
+          }}
+        >
           <Sidebar />
         </Grid>
         <Grid size={10}>
@@ -43,8 +49,8 @@ export default function Layout({
               >
                 <SearchInput
                   value={searchValue}
-                  onChange={(e) => setSearchValue(e.target.value)}
-                  onSubmit={() => { }}
+                  onChange={e => setSearchValue(e.target.value)}
+                  onSubmit={() => {}}
                   cx={{}}
                 />
               </Box>

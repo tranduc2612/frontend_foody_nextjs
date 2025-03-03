@@ -75,7 +75,7 @@ export const SIDE_BAR = [
     id: "bar-5",
     title: "Logout",
     url: "",
-    function: ()=>{},
+    function: () => {},
     child: [],
   },
 ];
@@ -88,11 +88,11 @@ export const queryKey = {
     GET_LIST: "GET_LIST",
     GET_LIST_SEASON: "GET_LIST_SEASON",
     GET_LIST_COUNTRIES: "GET_LIST_COUNTRIES",
-    GET_LIST_RECIPETYPES: "GET_LIST_RECIPETYPES"
+    GET_LIST_RECIPETYPES: "GET_LIST_RECIPETYPES",
   },
   CLOUD: {
-    UPLOAD_IMAGE: "UPLOAD_IMAGE"
-  }
+    UPLOAD_IMAGE: "UPLOAD_IMAGE",
+  },
 };
 
 export const ROUTES = {
